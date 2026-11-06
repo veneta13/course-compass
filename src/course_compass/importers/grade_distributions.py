@@ -1,8 +1,8 @@
 """Import exam grade distributions from the TUM Info API into PostgreSQL.
 
 The API is one JSON file with every exam, so a run makes a single request. Run
-setup_db.py first. Running the import again updates the existing rows instead of
-adding new ones.
+course_compass.setup_db first. Running the import again updates the existing rows
+instead of adding new ones.
 """
 import asyncio
 import html
@@ -13,7 +13,7 @@ from collections import Counter
 from dataclasses import dataclass
 from decimal import Decimal
 
-from database import close_db_pool, init_db_pool
+from course_compass.database import close_db_pool, init_db_pool
 
 SOURCE_URL = "https://mykolamor.github.io/tum_info/api/courses.json"
 USER_AGENT = "course-compass (university project)"
