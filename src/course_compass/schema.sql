@@ -12,13 +12,14 @@ CREATE TABLE IF NOT EXISTS courses (
     language VARCHAR(50),
     assessment_type VARCHAR(255),
     prerequisites TEXT,
-    workload_hours_per_week NUMERIC(4, 1) CHECK (workload_hours_per_week >= 0)
+    workload_hours_per_week NUMERIC(4, 1) CHECK (workload_hours_per_week >= 0),
     course_code VARCHAR(50),
     tumonline_uid VARCHAR(100),
     description_source VARCHAR(100) DEFAULT 'TUMonline',
-    description_updated_at TIMESTAMP WITH TIME ZONE;
+    description_updated_at TIMESTAMP WITH TIME ZONE
+    );
     CREATE UNIQUE INDEX IF NOT EXISTS uq_courses_tumonline_uid
-);
+        ON courses (tumonline_uid);
 
 CREATE TABLE IF NOT EXISTS reviews (
     review_id SERIAL PRIMARY KEY,
