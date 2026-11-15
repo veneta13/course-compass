@@ -32,10 +32,30 @@ Each import has its own module in `src/course_compass/importers`. Run it after t
 |---|---|---|
 | Grade distributions | `python -m course_compass.importers.grade_distributions` | [Docs](docs/grade-distributions.md) |
 
+## Frontend
+
+The web user interface is built with React, Vite, and Tailwind CSS.
+
+To run the frontend development server:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+To create a production build:
+
+```bash
+cd frontend
+npm run build
+```
+
 ## Project structure
 
 ```
 docs/                   Documentation
+frontend/               React + Vite + Tailwind CSS web interface
 src/course_compass/
     database.py         Database connection pool
     schema.sql          Tables, indexes and views
