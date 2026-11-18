@@ -28,7 +28,7 @@ export default function InterestInputCard({ interestText, setInterestText }) {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-xs transition hover:shadow-sm">
+    <div className="bg-white rounded-2xl border border-slate-200/90 p-5 sm:p-6 shadow-xs transition hover:shadow-sm">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-bold text-slate-900 tracking-tight">
           What are you interested in?
@@ -44,7 +44,7 @@ export default function InterestInputCard({ interestText, setInterestText }) {
               Clear
             </button>
           )}
-          <span className="text-xs font-medium text-slate-400 flex items-center gap-1">
+          <span className="text-xs font-medium text-slate-400 hidden sm:flex items-center gap-1">
             <Compass className="w-3.5 h-3.5 text-blue-500" />
             Natural Language Query
           </span>

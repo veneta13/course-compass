@@ -36,26 +36,34 @@ Each import has its own module in `src/course_compass/importers`. Run it after t
 
 The web user interface is built with React, Vite, and Tailwind CSS.
 
-To run the frontend development server:
+Install the dependencies once:
 
 ```bash
 cd frontend
 npm install
-npm run dev
 ```
 
-To create a production build:
+Then start it in one of two modes:
 
-```bash
-cd frontend
-npm run build
-```
+| Command | Data | Use it for |
+|---|---|---|
+| `npm run dev` | The FastAPI backend at `http://localhost:8000`, through the Vite proxy at `/api` | Real use and backend development |
+| `npm run demo` | Invented courses and a sample student from `frontend/src/demo` | Presentations and UI work without a backend |
+
+Demo mode shows a "Demo mode" banner and keeps its saved state separate from normal runs. A normal build doesn't include any demo data.
+
+To create a production build, run `npm run build`, or `npm run build:demo` for a demo build.
+
+Every request the frontend makes, with the JSON it expects, is listed in [Frontend API contract](docs/frontend-api.md).
 
 ## Project structure
 
 ```
 docs/                   Documentation
 frontend/               React + Vite + Tailwind CSS web interface
+    src/api/            The only place that talks to the backend
+    src/demo/           Demo fixtures and mock backend (npm run demo)
+    src/pages/          One component per screen
 src/course_compass/
     database.py         Database connection pool
     schema.sql          Tables, indexes and views

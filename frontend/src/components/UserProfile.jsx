@@ -21,6 +21,8 @@ import {
   ChevronRight,
   ArrowLeft
 } from 'lucide-react';
+import { useAppState } from '../state/AppState';
+import { navigate } from '../lib/router';
 
 const TIME_COMMITMENT_OPTIONS = [
   'Full-time Study (0h external work)',
@@ -31,28 +33,15 @@ const TIME_COMMITMENT_OPTIONS = [
   'Family & Personal Commitments'
 ];
 
-export default function UserProfile({ onNavigateToFinder }) {
+export default function UserProfile() {
+  const { profile, updateProfile } = useAppState();
   const [isEditing, setIsEditing] = useState(false);
-  const [profile, setProfile] = useState({
-    firstName: 'Test',
-    lastName: 'Student',
-    email: 'test.student@tum.de',
-    degreeProgram: 'M.Sc. Informatics',
-    faculty: 'TUM School of Computation, Information and Technology',
-    currentSemester: 1,
-    targetGraduation: 'Winter 2027/28',
-    targetEcts: 120,
-    specialization: 'Information Systems & Data Engineering',
-    maxEctsPerSemester: 30,
-    preferredLanguage: 'English & German',
-    timeCommitment: 'Working Student (15-20h / week)'
-  });
-
   const [editForm, setEditForm] = useState({ ...profile });
 
-  const [completedCourses, setCompletedCourses] = useState([]);
-
-  const [skills, setSkills] = useState([]);
+  const { completedCourses, skills } = profile;
+  const setCompletedCourses = (list) => updateProfile({ completedCourses: list });
+  const setSkills = (list) => updateProfile({ skills: list });
+  const onNavigateToFinder = () => navigate('/');
 
   const [newSkill, setNewSkill] = useState('');
   const [showAddCourse, setShowAddCourse] = useState(false);
@@ -67,7 +56,8 @@ export default function UserProfile({ onNavigateToFinder }) {
 
   const handleSaveProfile = (e) => {
     e.preventDefault();
-    setProfile({ ...editForm });
+    const { firstName, lastName, email, degreeProgram, specialization, timeCommitment, targetEcts } = editForm;
+    updateProfile({ firstName, lastName, email, degreeProgram, specialization, timeCommitment, targetEcts: Number(targetEcts) || profile.targetEcts });
     setIsEditing(false);
   };
 
@@ -108,7 +98,7 @@ export default function UserProfile({ onNavigateToFinder }) {
 
   // Calculate dynamic stats
   const totalEarnedEcts = completedCourses.reduce((sum, c) => sum + (Number(c.ects) || 0), 0);
-  const progressPercent = Math.min(100, Math.round((totalEarnedEcts / (profile.targetEcts || 120)) * 100));
+  const progressPercent = Math.min(100, Math.round((totalEarnedEcts / (profile.degreeEcts || 120)) * 100));
 
   // Dynamic GPA calculation from graded courses
   const gradedCourses = completedCourses.filter(
@@ -121,7 +111,7 @@ export default function UserProfile({ onNavigateToFinder }) {
       ).toFixed(2)
     : '—';
 
-  const avatarInitials = `${(profile.firstName?.[0] || 'T')}${(profile.lastName?.[0] || 'S')}`.toUpperCase();
+  const avatarInitials = `${profile.firstName?.[0] || ''}${profile.lastName?.[0] || ''}`.toUpperCase() || '?';
 
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
@@ -134,7 +124,7 @@ export default function UserProfile({ onNavigateToFinder }) {
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-800 transition mb-2 cursor-pointer"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            Back to Course Matcher
+            Back to course finder
           </button>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
             Student Profile & Academic Records
@@ -181,7 +171,7 @@ export default function UserProfile({ onNavigateToFinder }) {
       </div>
 
       {/* Main Profile Header Card */}
-      <div className="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-8 shadow-xs">
+      <div className="bg-white rounded-2xl border border-slate-200/90 p-5 sm:p-8 shadow-xs">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-slate-100">
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white font-bold text-2xl flex items-center justify-center shadow-md shadow-blue-500/20 shrink-0">
@@ -190,7 +180,7 @@ export default function UserProfile({ onNavigateToFinder }) {
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-xl font-bold text-slate-900 tracking-tight">
-                  {profile.firstName} {profile.lastName}
+                  {[profile.firstName, profile.lastName].filter(Boolean).join(' ') || 'Your name'}
                 </h2>
               </div>
               <p className="text-sm font-medium text-slate-600 mt-0.5">
@@ -205,7 +195,7 @@ export default function UserProfile({ onNavigateToFinder }) {
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 w-full md:w-auto">
             <div className="bg-slate-50/80 border border-slate-200/60 rounded-xl p-3 text-center">
               <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Completed ECTS</span>
-              <span className="text-lg font-extrabold text-blue-600 mt-0.5 block">{totalEarnedEcts} / {profile.targetEcts}</span>
+              <span className="text-lg font-extrabold text-blue-600 mt-0.5 block">{totalEarnedEcts} / {profile.degreeEcts}</span>
             </div>
             <div className="bg-slate-50/80 border border-slate-200/60 rounded-xl p-3 text-center">
               <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Average Grade</span>
@@ -213,7 +203,7 @@ export default function UserProfile({ onNavigateToFinder }) {
             </div>
             <div className="bg-slate-50/80 border border-slate-200/60 rounded-xl p-3 text-center col-span-2 sm:col-span-1">
               <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Target Graduation</span>
-              <span className="text-sm font-bold text-slate-700 mt-1 block">{profile.targetGraduation}</span>
+              <span className="text-sm font-bold text-slate-700 mt-1 block">{profile.targetGraduation || '—'}</span>
             </div>
           </div>
         </div>
@@ -225,7 +215,7 @@ export default function UserProfile({ onNavigateToFinder }) {
               <TrendingUp className="w-3.5 h-3.5 text-blue-600" />
               Degree Progress ({progressPercent}%)
             </span>
-            <span className="text-slate-400">{Math.max(0, profile.targetEcts - totalEarnedEcts)} ECTS remaining</span>
+            <span className="text-slate-400">{Math.max(0, profile.degreeEcts - totalEarnedEcts)} ECTS remaining</span>
           </div>
           <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden p-0.5 border border-slate-200/60">
             <div 
@@ -309,8 +299,8 @@ export default function UserProfile({ onNavigateToFinder }) {
                   <label className="block font-semibold text-slate-700 mb-1">Target ECTS Per Semester</label>
                   <input
                     type="number"
-                    value={editForm.maxEctsPerSemester}
-                    onChange={(e) => setEditForm({ ...editForm, maxEctsPerSemester: Number(e.target.value) })}
+                    value={editForm.targetEcts}
+                    onChange={(e) => setEditForm({ ...editForm, targetEcts: Number(e.target.value) })}
                     className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
                   />
                 </div>
@@ -319,7 +309,7 @@ export default function UserProfile({ onNavigateToFinder }) {
               <div className="space-y-3 text-xs">
                 <div className="flex justify-between py-1.5 border-b border-slate-100">
                   <span className="text-slate-500">TUM Email:</span>
-                  <span className="font-semibold text-slate-800">{profile.email}</span>
+                  <span className="font-semibold text-slate-800">{profile.email || '—'}</span>
                 </div>
                 <div className="flex justify-between py-1.5 border-b border-slate-100">
                   <span className="text-slate-500">Degree Program:</span>
@@ -334,8 +324,8 @@ export default function UserProfile({ onNavigateToFinder }) {
                   <span className="font-semibold text-slate-800">{profile.timeCommitment}</span>
                 </div>
                 <div className="flex justify-between py-1.5 border-b border-slate-100">
-                  <span className="text-slate-500">Max Workload:</span>
-                  <span className="font-semibold text-slate-800">{profile.maxEctsPerSemester} ECTS / semester</span>
+                  <span className="text-slate-500">Target this semester:</span>
+                  <span className="font-semibold text-slate-800">{profile.targetEcts} ECTS / semester</span>
                 </div>
                 <div className="flex justify-between py-1.5">
                   <span className="text-slate-500">Languages:</span>
@@ -400,7 +390,7 @@ export default function UserProfile({ onNavigateToFinder }) {
         </div>
 
         {/* Right 2 Columns: Completed Modules & Curriculum Breakdown */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-6 min-w-0">
           <div className="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-xs">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
               <div>
