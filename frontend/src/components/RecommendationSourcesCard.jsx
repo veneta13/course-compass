@@ -21,7 +21,7 @@ export default function RecommendationSourcesCard() {
   ];
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-xs">
+    <div className="bg-white rounded-2xl border border-slate-200/90 p-5 sm:p-6 shadow-xs">
       <h3 className="text-sm font-bold text-slate-900 tracking-tight mb-4">
         What the recommendations draw on
       </h3>
