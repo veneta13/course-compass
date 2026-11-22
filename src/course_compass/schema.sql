@@ -1,107 +1,195 @@
-CREATE TABLE IF NOT EXISTS degrees (
-    degree_id VARCHAR(50) PRIMARY KEY,
-    degree_name VARCHAR(255) NOT NULL
+-- ============================================================================
+-- PART 1: GENERAL TUM COURSE DB
+-- ============================================================================
+-- 22/11: modified to be consistent with the scraper script
+CREATE TABLE IF NOT EXISTS semesters (
+  semester_id BIGINT PRIMARY KEY,
+  semester_key TEXT,
+  label TEXT,
+  start_date TEXT,
+  end_date TEXT,
+  raw_json JSONB NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS courses (
-    course_id VARCHAR(50) PRIMARY KEY,
-    course_name VARCHAR(255) NOT NULL,
-    module_description TEXT,
-    ects INTEGER CHECK (ects >= 0),
-    course_type VARCHAR(100),
-    language VARCHAR(50),
-    assessment_type VARCHAR(255),
-    prerequisites TEXT,
-    workload_hours_per_week NUMERIC(4, 1) CHECK (workload_hours_per_week >= 0),
-    course_code VARCHAR(50),
-    tumonline_uid VARCHAR(100),
-    description_source VARCHAR(100) DEFAULT 'TUMonline',
-    description_updated_at TIMESTAMP WITH TIME ZONE
-    );
-    CREATE UNIQUE INDEX IF NOT EXISTS uq_courses_tumonline_uid
-        ON courses (tumonline_uid);
-
-CREATE TABLE IF NOT EXISTS reviews (
-    review_id SERIAL PRIMARY KEY,
-    course_id VARCHAR(50) NOT NULL REFERENCES courses(course_id) ON DELETE CASCADE,
-    review_text TEXT NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+  course_id BIGINT PRIMARY KEY,
+  semester_id BIGINT NOT NULL REFERENCES semesters(semester_id),
+  number TEXT,
+  title TEXT,
+  title_de TEXT,
+  title_en TEXT,
+  ects DOUBLE PRECISION,
+  course_type TEXT,
+  organisation TEXT,
+  lecturers TEXT,
+  languages TEXT,
+  sws TEXT,
+  examination_method TEXT,
+  registration_info TEXT,
+  listing_json JSONB NOT NULL,
+  detail_json JSONB,
+  curriculum_json JSONB,
+  groups_json JSONB,
+  detail_fetched_at TIMESTAMPTZ,
+  curricula_fetched_at TIMESTAMPTZ,
+  groups_fetched_at TIMESTAMPTZ
 );
 
-CREATE TABLE IF NOT EXISTS grade_distributions (
-    distribution_id SERIAL PRIMARY KEY,
-    course_id VARCHAR(50) NOT NULL REFERENCES courses(course_id) ON DELETE CASCADE,
-    grade5x INTEGER DEFAULT 0 CHECK (grade5x >= 0),
-    ungraded_passed INTEGER DEFAULT 0 CHECK (ungraded_passed >= 0),
-    ungraded_failed INTEGER DEFAULT 0 CHECK (ungraded_failed >= 0),
-    year INTEGER NOT NULL CHECK (year >= 1900 AND year <= 2100),
-    semester VARCHAR(20) NOT NULL,
-    exam_type VARCHAR(20) NOT NULL CHECK (exam_type IN ('endterm', 'retake')),
-    CONSTRAINT uq_course_semester_exam UNIQUE (course_id, year, semester, exam_type)
+CREATE INDEX IF NOT EXISTS courses_semester_idx ON courses(semester_id);
+CREATE INDEX IF NOT EXISTS courses_title_idx ON courses(title);
+
+-- detailed course description in multiple languages
+-- instead of adding more columns on the main table
+CREATE TABLE IF NOT EXISTS course_texts (
+  course_id BIGINT NOT NULL REFERENCES courses(course_id) ON DELETE CASCADE,
+  field TEXT NOT NULL,
+  language TEXT NOT NULL,
+  value TEXT NOT NULL,
+  PRIMARY KEY (course_id, field, language)
 );
 
--- One row per grade awarded. Grades are rows rather than columns because exams
--- can use any step of 0.1, for example 1.4 after a grade bonus.
-CREATE TABLE IF NOT EXISTS grade_counts (
-    distribution_id INTEGER NOT NULL REFERENCES grade_distributions(distribution_id) ON DELETE CASCADE,
-    grade NUMERIC(2, 1) NOT NULL CHECK (grade >= 1.0 AND grade <= 5.0),
+-- record fetch errors while scraping courses
+CREATE TABLE IF NOT EXISTS fetch_errors (
+  course_id BIGINT NOT NULL,
+  resource TEXT NOT NULL,
+  error TEXT NOT NULL,
+  last_seen TIMESTAMPTZ NOT NULL,
+  PRIMARY KEY (course_id, resource)
+);
+
+CREATE OR REPLACE VIEW course_catalog AS
+SELECT c.course_id, c.semester_id, c.number, c.title,
+       c.title_de, c.title_en, c.ects, c.course_type,
+       c.organisation, c.lecturers, c.languages, c.sws,
+       c.examination_method, c.registration_info,
+       (SELECT t.value FROM course_texts t WHERE t.course_id=c.course_id
+        AND t.field='courseContent' AND t.language='en') AS content_en,
+       (SELECT t.value FROM course_texts t WHERE t.course_id=c.course_id
+        AND t.field='courseContent' AND t.language='de') AS content_de,
+       (SELECT t.value FROM course_texts t WHERE t.course_id=c.course_id
+        AND t.field='courseObjective' AND t.language='en') AS objectives_en,
+       (SELECT t.value FROM course_texts t WHERE t.course_id=c.course_id
+        AND t.field='previousKnowledge' AND t.language='en') AS prerequisites_en,
+       c.detail_fetched_at
+FROM courses c;
+
+CREATE TABLE IF NOT EXISTS course_degrees (
+    course_id BIGINT NOT NULL
+        REFERENCES courses(course_id) ON DELETE CASCADE,
+    degree TEXT NOT NULL,
+    PRIMARY KEY (course_id, degree)
+);
+
+CREATE INDEX IF NOT EXISTS course_degrees_degree_idx ON course_degrees(degree);
+
+-- ============================================================================
+-- PART 2: TUM INFO EXAM STATISTICS
+-- ============================================================================
+-- 22/11: modified to be consistent with the tum info scraper script
+-- since it's not easy to map courses directly (different format received from tum info),
+-- we create a separate table and try to map them
+CREATE TABLE IF NOT EXISTS tum_info_courses (
+    course_code TEXT PRIMARY KEY,
+    course_name TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS tum_info_grade_distributions (
+    distribution_id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    course_code TEXT NOT NULL
+        REFERENCES tum_info_courses(course_code) ON DELETE CASCADE,
+    year INTEGER NOT NULL CHECK (year BETWEEN 1900 AND 2100),
+    semester TEXT NOT NULL,
+    exam_type TEXT NOT NULL CHECK (exam_type IN ('endterm', 'retake')),
+    -- TUM Info uses grade 6.0 for no-shows, 7.0 for ungraded passes,
+    -- and 8.0 for ungraded failures; none belongs in a grade average.
+    no_show_count INTEGER NOT NULL DEFAULT 0 CHECK (no_show_count >= 0),
+    ungraded_passed INTEGER NOT NULL DEFAULT 0 CHECK (ungraded_passed >= 0),
+    ungraded_failed INTEGER NOT NULL DEFAULT 0 CHECK (ungraded_failed >= 0),
+    CONSTRAINT uq_tum_info_course_exam
+        UNIQUE (course_code, year, semester, exam_type)
+);
+
+CREATE TABLE IF NOT EXISTS tum_info_grade_counts (
+    distribution_id BIGINT NOT NULL
+        REFERENCES tum_info_grade_distributions(distribution_id)
+        ON DELETE CASCADE,
+    grade NUMERIC(2, 1) NOT NULL CHECK (grade BETWEEN 1.0 AND 5.0),
     student_count INTEGER NOT NULL CHECK (student_count > 0),
     PRIMARY KEY (distribution_id, grade)
 );
 
-CREATE TABLE IF NOT EXISTS degree_courses (
-    course_id VARCHAR(50) NOT NULL REFERENCES courses(course_id) ON DELETE CASCADE,
-    degree_id VARCHAR(50) NOT NULL REFERENCES degrees(degree_id) ON DELETE CASCADE,
-    degree_group VARCHAR(100) NOT NULL,
-    PRIMARY KEY (course_id, degree_id, degree_group)
-);
+CREATE INDEX IF NOT EXISTS idx_tum_info_grades_course_code
+    ON tum_info_grade_distributions(course_code);
 
-CREATE TABLE IF NOT EXISTS course_semester (
-    course_id VARCHAR(50) PRIMARY KEY REFERENCES courses(course_id) ON DELETE CASCADE,
-    offered_winter BOOLEAN NOT NULL DEFAULT FALSE,
-    offered_summer BOOLEAN NOT NULL DEFAULT FALSE
-);
-
-CREATE TABLE IF NOT EXISTS course_offerings (
-    offering_id SERIAL PRIMARY KEY,
-    course_id VARCHAR(50) NOT NULL REFERENCES courses(course_id) ON DELETE CASCADE,
-    year INTEGER NOT NULL CHECK (year >= 1900 AND year <= 2100),
-    semester VARCHAR(20) NOT NULL,
-    schedule VARCHAR(255),
-    room VARCHAR(100),
-    lecturer VARCHAR(255),
-    is_current BOOLEAN DEFAULT FALSE,
-    CONSTRAINT uq_course_offering UNIQUE (course_id, year, semester)
-);
-
-CREATE INDEX IF NOT EXISTS idx_reviews_course_id ON reviews(course_id);
-CREATE INDEX IF NOT EXISTS idx_grade_distributions_course_id ON grade_distributions(course_id);
-CREATE INDEX IF NOT EXISTS idx_degree_courses_degree_id ON degree_courses(degree_id);
-CREATE INDEX IF NOT EXISTS idx_course_offerings_course_id ON course_offerings(course_id);
-CREATE INDEX IF NOT EXISTS idx_course_offerings_lookup ON course_offerings(year, semester, is_current);
-
--- Grade bands and averages for charts. The limits leave no gaps, so every grade
--- falls into exactly one band: 1.4 counts as very good and 1.6 as good. Averages
--- use only real grades, so no-shows and results without a grade don't count, and
--- an exam without real grades has no average.
-CREATE OR REPLACE VIEW grade_distribution_bands AS
+-- Averages use only numerical grades. A course with no numerical grades
+-- has NULL averages. Grades 6.0, 7.0 and 8.0 are kept as separate counts.
+CREATE OR REPLACE VIEW tum_info_grade_distribution_bands AS
 SELECT
     d.distribution_id,
-    d.course_id,
+    d.course_code,
     d.year,
     d.semester,
     d.exam_type,
-    COALESCE(SUM(c.student_count) FILTER (WHERE c.grade <= 1.5), 0)::INTEGER AS very_good,
-    COALESCE(SUM(c.student_count) FILTER (WHERE c.grade > 1.5 AND c.grade <= 2.5), 0)::INTEGER AS good,
-    COALESCE(SUM(c.student_count) FILTER (WHERE c.grade > 2.5 AND c.grade <= 3.5), 0)::INTEGER AS satisfactory,
-    COALESCE(SUM(c.student_count) FILTER (WHERE c.grade > 3.5 AND c.grade <= 4.0), 0)::INTEGER AS sufficient,
-    COALESCE(SUM(c.student_count) FILTER (WHERE c.grade > 4.0), 0)::INTEGER AS failed,
-    d.grade5x,
+    COALESCE(SUM(g.student_count) FILTER (WHERE g.grade <= 1.5), 0)::INTEGER
+        AS very_good,
+    COALESCE(SUM(g.student_count) FILTER
+        (WHERE g.grade > 1.5 AND g.grade <= 2.5), 0)::INTEGER AS good,
+    COALESCE(SUM(g.student_count) FILTER
+        (WHERE g.grade > 2.5 AND g.grade <= 3.5), 0)::INTEGER AS satisfactory,
+    COALESCE(SUM(g.student_count) FILTER
+        (WHERE g.grade > 3.5 AND g.grade <= 4.0), 0)::INTEGER AS sufficient,
+    COALESCE(SUM(g.student_count) FILTER (WHERE g.grade > 4.0), 0)::INTEGER
+        AS failed,
+    d.no_show_count,
     d.ungraded_passed,
     d.ungraded_failed,
-    ROUND(SUM(c.grade * c.student_count) / SUM(c.student_count), 2) AS average_grade,
-    ROUND(SUM(c.grade * c.student_count) FILTER (WHERE c.grade <= 4.0)
-        / SUM(c.student_count) FILTER (WHERE c.grade <= 4.0), 2) AS average_passed
-FROM grade_distributions d
-LEFT JOIN grade_counts c ON c.distribution_id = d.distribution_id
+    ROUND(
+        SUM(g.grade * g.student_count) /
+        NULLIF(SUM(g.student_count), 0), 2
+    ) AS average_grade,
+    ROUND(
+        SUM(g.grade * g.student_count) FILTER (WHERE g.grade <= 4.0) /
+        NULLIF(SUM(g.student_count) FILTER (WHERE g.grade <= 4.0), 0), 2
+    ) AS average_passed
+FROM tum_info_grade_distributions AS d
+LEFT JOIN tum_info_grade_counts AS g
+    ON g.distribution_id = d.distribution_id
 GROUP BY d.distribution_id;
+
+-- view for POSSIBLE matches, not verified equivalences. This view does not write back
+-- to courses or claim that a course offering and an exam are the same entity.
+CREATE OR REPLACE VIEW tum_info_candidate_course_matches AS
+SELECT
+    c.course_id,
+    c.semester_id,
+    c.number AS tumonline_number,
+    t.course_code,
+    t.course_name
+FROM courses AS c
+JOIN tum_info_courses AS t
+    ON UPPER(BTRIM(c.number)) = UPPER(BTRIM(t.course_code));
+
+-- Links between separate TUMonline and TUM Info course records.
+-- Exact course-code matches are only candidates until manually verified.
+CREATE TABLE IF NOT EXISTS course_tum_info_matches (
+    course_id BIGINT NOT NULL
+        REFERENCES courses(course_id) ON DELETE CASCADE,
+    course_code TEXT NOT NULL
+        REFERENCES tum_info_courses(course_code) ON DELETE CASCADE,
+    status TEXT NOT NULL DEFAULT 'candidate'
+        CHECK (status IN ('candidate', 'verified', 'rejected')),
+    PRIMARY KEY (course_id, course_code)
+);
+
+CREATE INDEX IF NOT EXISTS course_tum_info_matches_code_idx
+    ON course_tum_info_matches(course_code);
+
+-- ============================================================================
+-- PART 3: WIP (since the review system is still in progress)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS reviews (
+    review_id SERIAL PRIMARY KEY,
+    course_id BIGINT NOT NULL REFERENCES courses(course_id) ON DELETE CASCADE,
+    review_text TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
