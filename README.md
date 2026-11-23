@@ -64,3 +64,24 @@ src/course_compass/
 ```
 
 See [Database schema](docs/database-schema.md) for how the tables relate to each other.
+
+# Transcript & CV Reader
+
+Local API that extracts structured information from academic transcripts and CVs using Ollama.
+
+## Setup
+
+```bash
+# 1. Install Ollama and pull a model
+curl -fsSL https://ollama.com/install.sh | sh
+ollama pull llama3.1:8b
+
+# 2. Create virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+pip install fastapi uvicorn python-multipart pdfplumber ollama
+
+# 3. Run the API
+uvicorn src.course_compass.transcript_reader:app --reload
+
+#4 Open [127.0.0.1](http://127.0.0.1:8000/) to upload a PDF.
