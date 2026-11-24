@@ -29,26 +29,25 @@ VALID_GRADE_RE = re.compile(r"[1-4]\.\d|5\.0|6\.0|7\.0|8\.0")
 SEMESTER_RE = re.compile(r"(\d{4})(W|S)S?")
 
 INSERT_COURSE = """
-    INSERT INTO courses (course_id, course_name)
+    INSERT INTO tum_info_courses (course_code, course_name)
     VALUES ($1, $2)
-    ON CONFLICT (course_id) DO NOTHING
+    ON CONFLICT (course_code) DO NOTHING
 """
 UPSERT_DISTRIBUTION = """
-    INSERT INTO grade_distributions
-        (course_id, year, semester, exam_type, grade5x, ungraded_passed, ungraded_failed)
+    INSERT INTO tum_info_grade_distributions
+        (course_code, year, semester, exam_type, no_show_count, ungraded_passed, ungraded_failed)
     VALUES ($1, $2, $3, $4, $5, $6, $7)
-    ON CONFLICT (course_id, year, semester, exam_type) DO UPDATE SET
-        grade5x = EXCLUDED.grade5x,
+    ON CONFLICT (course_code, year, semester, exam_type) DO UPDATE SET
+        no_show_count = EXCLUDED.no_show_count,
         ungraded_passed = EXCLUDED.ungraded_passed,
         ungraded_failed = EXCLUDED.ungraded_failed
     RETURNING distribution_id
 """
-DELETE_GRADE_COUNTS = "DELETE FROM grade_counts WHERE distribution_id = $1"
+DELETE_GRADE_COUNTS = "DELETE FROM tum_info_grade_counts WHERE distribution_id = $1"
 INSERT_GRADE_COUNT = """
-    INSERT INTO grade_counts (distribution_id, grade, student_count)
+    INSERT INTO tum_info_grade_counts (distribution_id, grade, student_count)
     VALUES ($1, $2, $3)
 """
-
 
 @dataclass
 class Exam:
@@ -59,12 +58,10 @@ class Exam:
     exam_type: str
     counts: Counter
 
-
 def fetch_entries() -> list[dict]:
     request = urllib.request.Request(SOURCE_URL, headers={"User-Agent": USER_AGENT})
     with urllib.request.urlopen(request, timeout=60) as response:
         return json.load(response)
-
 
 def parse_semester(value: str) -> tuple[int, str]:
     """Turn the API's "2023WS" into the stored year and label: (2023, "WS2023")."""
@@ -73,7 +70,6 @@ def parse_semester(value: str) -> tuple[int, str]:
         raise ValueError(f"Unknown semester in the API: {value!r}")
     year, kind = match.groups()
     return int(year), f"{kind}S{year}"
-
 
 def parse_exam(entry: dict) -> Exam:
     """Convert one exam from the API, keeping every grade exactly as it is.
@@ -92,12 +88,11 @@ def parse_exam(entry: dict) -> Exam:
     name = html.unescape(entry["name"]).strip()
     return Exam(entry["code"], name, year, semester, entry["examType"], counts)
 
-
 async def save(course_names: dict[str, str], exams: list[Exam]) -> None:
     """Write everything in one transaction, so a failed run changes nothing.
 
-    grade_distributions references courses, so each course needs a row first. An
-    existing course is left as it is, because other imports may have filled it in.
+    tum_info_grade_distributions references tum_info_courses, so each course
+    needs a row first. An existing course is left unchanged.
     """
     pool = await init_db_pool(min_size=1, max_size=1)
     try:
@@ -126,7 +121,6 @@ async def save(course_names: dict[str, str], exams: list[Exam]) -> None:
     finally:
         await close_db_pool()
 
-
 def main() -> None:
     entries = fetch_entries()
     # An exam can be listed without any results, which leaves nothing to store.
@@ -144,7 +138,6 @@ def main() -> None:
         f"Read {len(entries)} exams and saved {len(exams)} grade distributions "
         f"for {len(course_names)} courses."
     )
-
 
 if __name__ == "__main__":
     main()
