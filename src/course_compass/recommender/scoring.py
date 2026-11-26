@@ -90,12 +90,11 @@ def format_checks(item: Item, prefs: FormatPrefs) -> list[FormatCheck]:
     """Check each stated preference against the course."""
     attrs = item.attributes or {}
     kind = item.assessment_kind
-    project_based = attrs.get("project_based", "unknown")
     checks = []
 
     if prefs.prefers_project is not None:
-        is_project = kind == "project" or project_based == "yes"
-        not_project = kind in ("written_exam", "oral_exam") and project_based == "no"
+        is_project = item.is_project_course or kind == "project"
+        not_project = not item.is_project_course and kind in ("written_exam", "oral_exam")
         if prefs.prefers_project:
             score = 1.0 if is_project else 0.0 if not_project else config.NEUTRAL
             checks.append(FormatCheck("project", score, "Project-based, as you prefer",

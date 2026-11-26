@@ -43,6 +43,12 @@ class Item:
     def from_row(cls, row) -> "Item":
         attributes = _json(row["attributes"])
         prereq = row["prereq_embeddings"]
+        topics = (attributes or {}).get("prerequisites") or []
+        if prereq and len(prereq) == len(topics):
+            # Drop placeholders such as "unknown" together with their embeddings.
+            keep = [i for i, t in enumerate(topics) if not is_placeholder_topic(t)]
+            attributes["prerequisites"] = [topics[i] for i in keep]
+            prereq = [prereq[i] for i in keep]
         return cls(
             item_id=row["item_id"], module_code=row["module_code"], module_codes=list(row["module_codes"]),
             passed_codes=list(row["passed_codes"]), is_umbrella=row["is_umbrella"],
@@ -75,6 +81,15 @@ class Item:
     @property
     def is_seminar(self) -> bool:
         return any(t in ("Seminar", "Hauptseminar") for t in self.course_types)
+
+    @property
+    def is_project_course(self) -> bool:
+        """Practical courses and projects, by their TUMonline course type.
+
+        The LLM's own 'project_based' answer isn't used: it said "yes" for
+        two thirds of all courses, plain lectures included.
+        """
+        return any(t in ("Praktikum", "Projekt") for t in self.course_types)
 
     @property
     def expected_hours(self) -> float | None:
@@ -159,6 +174,14 @@ class Evaluation:
     format_checks: list[FormatCheck] = field(default_factory=list)
     prerequisites: list[dict] = field(default_factory=list)
     blocked_by: list[dict] = field(default_factory=list)
+
+
+PLACEHOLDER_TOPICS = {"unknown", "none", "n/a", "na", "nothing", "keine", "no prerequisites", "-"}
+
+
+def is_placeholder_topic(topic: str) -> bool:
+    """True for answers like 'unknown' that the LLM sometimes lists as a prerequisite."""
+    return (topic or "").strip().strip(".").lower() in PLACEHOLDER_TOPICS
 
 
 def normalize(vectors: np.ndarray) -> np.ndarray:

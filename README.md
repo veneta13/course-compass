@@ -104,7 +104,13 @@ The recommender ranks the courses of a degree for one student profile and explai
    ollama pull qwen2.5:3b
    ```
 
-2. Prepare the recommender's data. Do this once, and again after each import:
+2. Load the recommender's prepared data. It belongs to the shared course dump from [Getting started](#getting-started):
+
+   ```bash
+   gunzip -c database_backups/recommender.sql.gz | psql -q -d course_compass > /dev/null
+   ```
+
+   After a new import, prepare the data yourself instead:
 
    ```bash
    python -m course_compass.recommender build                                # ~10 s, no Ollama needed

@@ -13,13 +13,15 @@ from typing import Callable, Literal
 from pydantic import BaseModel, Field, ValidationError
 
 from .llm import OllamaLLM
+from .models import is_placeholder_topic
 
 Level = Literal["low", "medium", "high", "unknown"]
 
 
 class CourseAttributes(BaseModel):
+    # No "project_based" question: the model answered "yes" for most courses,
+    # so it comes from the TUMonline course type instead (Item.is_project_course).
     assessment: Literal["written_exam", "oral_exam", "project", "mixed", "unknown"]
-    project_based: Literal["yes", "no", "unknown"]
     math_level: Level
     programming_level: Level
     prerequisites: list[str] = Field(
@@ -30,7 +32,6 @@ class CourseAttributes(BaseModel):
 SYSTEM_PROMPT = """You classify a university course from its description. Answer only from the text. Use "unknown" when the text doesn't say; never guess.
 
 assessment: how the course is graded. written_exam, oral_exam, project (project work, report, presentation or seminar paper), mixed, or unknown. Use mixed only if the text names at least two different graded parts, such as a written exam and a project. If the text doesn't say how the course is graded, use unknown.
-project_based: "yes" if students build or carry out a project, "no" if clearly not, else "unknown".
 math_level, programming_level: how much math or programming the course needs: low, medium, high, or unknown.
 prerequisites: up to 6 short topics (2 to 5 words) that students should know before the course, such as "linear algebra" or "Python programming". Translate them to English. Use [] if none are named."""
 
@@ -61,8 +62,9 @@ def attributes_prompt(row) -> str:
 
 
 def clean_topics(topics: list[str]) -> list[str]:
-    """Drop empty or placeholder entries such as '[ ]', keep at most 6."""
-    cleaned = [t.strip() for t in topics if re.search(r"[A-Za-zÄÖÜäöü]{3}", t or "")]
+    """Drop empty or placeholder entries such as '[ ]' or 'unknown', keep at most 6."""
+    cleaned = [t.strip() for t in topics
+               if re.search(r"[A-Za-zÄÖÜäöü]{3}", t or "") and not is_placeholder_topic(t)]
     return list(dict.fromkeys(cleaned))[:6]
 
 

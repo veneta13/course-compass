@@ -15,22 +15,25 @@ You need the database from [Getting started](../../../README.md#getting-started)
    ollama pull qwen2.5:3b      # reads text, 1.9 GB
    ```
 
-2. **Group the courses into items.** Creates the tables `rec_items` and `rec_item_degrees`; no Ollama needed:
+2. **Load the prepared data.** `database_backups/recommender.sql.gz` contains the recommender's tables for the shared course dump: embeddings for all 868 items of the ten degrees, and course categories for Master Informatics.
 
    ```bash
-   python -m course_compass.recommender build
+   gunzip -c database_backups/recommender.sql.gz | psql -q -d course_compass > /dev/null
    ```
 
-3. **Add embeddings and course categories:**
+   Use your database's name instead of `course_compass`. Loading it again replaces the tables. If `psql` reports `invalid command \restrict`, it's older than August 2025; the data still loads.
+
+   **Or prepare the data yourself**, which is needed after a new import:
 
    ```bash
+   python -m course_compass.recommender build                                  # items, ~10 s, no Ollama needed
    python -m course_compass.recommender enrich --embeddings-only               # all courses, ~3 min
    python -m course_compass.recommender enrich --degree master-informatics     # categories, ~9 s per course
    ```
 
-   Categorizing all ~520 Master Informatics courses takes about 75 minutes on an M1 MacBook Air. You can stop it and start it again: courses that are done are skipped. Without the categories, interest matching works, but the prerequisite check and the format preferences don't.
+   `build` creates the tables `rec_items` and `rec_item_degrees`. Categorizing all ~520 Master Informatics courses takes about 75 minutes on an M1 MacBook Air. You can stop it and start it again: courses that are done are skipped. Without the categories, interest matching works, but the prerequisite check and the format preferences don't.
 
-4. **Try it:**
+3. **Try it:**
 
    ```bash
    python -m course_compass.recommender try --degree master-informatics \
@@ -41,7 +44,12 @@ You need the database from [Getting started](../../../README.md#getting-started)
 
    `--transcript` takes a JSON list of completed courses in the `completed_courses` format of [frontend-api.md](../../../docs/frontend-api.md). `--json` prints the full response.
 
-Run `build` and `enrich` again after each import. Both keep the work for courses that haven't changed.
+After each import, run `build` and `enrich` again; both keep the work for courses that haven't changed. Then update the shared file, so the others can load it instead:
+
+```bash
+pg_dump --clean --if-exists --no-owner --no-privileges -t rec_items -t rec_item_degrees course_compass \
+    | gzip -9 > database_backups/recommender.sql.gz
+```
 
 ### Models
 
