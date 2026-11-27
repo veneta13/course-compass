@@ -3,7 +3,8 @@ import { Plus } from 'lucide-react';
 import { api } from '../api/client';
 import { useAsync } from '../lib/useAsync';
 import { useAppState } from '../state/AppState';
-import { BackLink, ErrorBox, Loading } from '../components/ui';
+import { BackLink, Card, ErrorBox, Loading } from '../components/ui';
+import { Link } from '../lib/router';
 import RecommendationCard from '../components/RecommendationCard';
 import { coursesClash } from '../lib/schedule';
 import { shortCourseName } from '../lib/format';
@@ -25,13 +26,29 @@ export default function MatchesPage() {
   const visible = useMemo(() => {
     if (!data) return [];
     let list = data.results.filter((r) => r.match >= 55);
-    if (sort === 'workload') list = [...list].sort((a, b) => a.course.workload_hours_per_week - b.course.workload_hours_per_week);
+    if (sort === 'workload') list = [...list].sort((a, b) => (a.course.workload_hours_per_week ?? 99) - (b.course.workload_hours_per_week ?? 99));
     if (sort === 'rating') list = [...list].sort((a, b) => (b.course.rating.average ?? 0) - (a.course.rating.average ?? 0));
     if (sort === 'project') list = list.filter((r) => r.course.exam_style === 'project');
     return list.slice(0, 8);
   }, [data, sort]);
 
   if (loading && !data) return <Loading label="Matching courses to your profile…" />;
+  if (error?.status === 501) {
+    return (
+      <div>
+        <BackLink to="/">Edit your profile</BackLink>
+        <Card className="mt-4 text-center py-12">
+          <h1 className="text-xl font-bold text-slate-900">Personal recommendations are coming soon</h1>
+          <p className="text-sm text-slate-500 mt-2 max-w-md mx-auto">
+            The recommender isn't connected to the server yet. Your profile is saved, and you can already browse this semester's courses with their exam statistics.
+          </p>
+          <Link to="/courses" className="inline-block mt-5 px-5 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700">
+            Browse the catalog
+          </Link>
+        </Card>
+      </div>
+    );
+  }
   if (error) return <ErrorBox error={error} onRetry={reload} />;
 
   const combo = data.combination;

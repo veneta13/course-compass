@@ -4,7 +4,7 @@ import { api } from '../api/client';
 import { useAsync } from '../lib/useAsync';
 import { useAppState } from '../state/AppState';
 import { Link } from '../lib/router';
-import { formatGrade, formatPercent } from '../lib/format';
+import { ectsLabel, formatGrade, formatPercent, hoursLabel } from '../lib/format';
 import { formatSchedule } from '../lib/schedule';
 import { CURRENT_SEMESTER, DEGREE } from '../config';
 import { ErrorBox, Loading, Tag } from '../components/ui';
@@ -12,6 +12,7 @@ import { ErrorBox, Loading, Tag } from '../components/ui';
 const selectCls =
   'w-full px-3 py-2 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500';
 
+const PAGE_SIZE = 30;
 const DEFAULT_FILTERS = { type: 'all', language: 'all', group: 'all', maxHours: 'all', ects: 'all', sort: 'name' };
 
 export default function CatalogPage() {
@@ -20,6 +21,8 @@ export default function CatalogPage() {
   const [query, setQuery] = useState('');
   const [filters, setFilters] = useState(DEFAULT_FILTERS);
   const [showFilters, setShowFilters] = useState(false);
+  // The real catalog has hundreds of courses; render them in pages.
+  const [shown, setShown] = useState(PAGE_SIZE);
   const hasProfile = profile.interestText.trim().length > 0 || profile.completedCourses.length > 0;
 
   // Match scores come from the recommender; the catalog itself works without a profile.
@@ -42,28 +45,32 @@ export default function CatalogPage() {
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
     let list = scored.filter(({ course: c }) => {
-      if (q && !`${c.course_name} ${c.course_id} ${c.module_description} ${(c.topics || []).join(' ')} ${c.offering.lecturer || ''}`.toLowerCase().includes(q)) return false;
+      if (q && !`${c.course_name} ${c.module_code || ''} ${c.course_id} ${c.module_description || ''} ${(c.topics || []).join(' ')} ${c.offering.lecturer || ''}`.toLowerCase().includes(q)) return false;
       if (filters.type !== 'all' && c.course_type !== filters.type) return false;
       if (filters.language !== 'all' && c.language !== filters.language) return false;
       if (filters.group !== 'all' && !c.degree_groups.includes(filters.group)) return false;
-      if (filters.maxHours !== 'all' && c.workload_hours_per_week > Number(filters.maxHours)) return false;
-      if (filters.ects === 'small' && c.ects > 5) return false;
-      if (filters.ects === 'medium' && (c.ects < 6 || c.ects > 8)) return false;
-      if (filters.ects === 'large' && c.ects < 9) return false;
+      // Courses without ECTS or workload data drop out once these filters are used.
+      if (filters.maxHours !== 'all' && !(c.workload_hours_per_week <= Number(filters.maxHours))) return false;
+      if (filters.ects === 'small' && !(c.ects <= 5)) return false;
+      if (filters.ects === 'medium' && !(c.ects >= 6 && c.ects <= 8)) return false;
+      if (filters.ects === 'large' && !(c.ects >= 9)) return false;
       return true;
     });
     const sorters = {
       name: (a, b) => a.course.course_name.localeCompare(b.course.course_name),
       match: (a, b) => (b.match ?? -1) - (a.match ?? -1),
       rating: (a, b) => (b.course.rating.average ?? 0) - (a.course.rating.average ?? 0),
-      workload: (a, b) => a.course.workload_hours_per_week - b.course.workload_hours_per_week,
+      workload: (a, b) => (a.course.workload_hours_per_week ?? 99) - (b.course.workload_hours_per_week ?? 99),
       passRate: (a, b) => (b.course.grade_summary.pass_rate ?? 0) - (a.course.grade_summary.pass_rate ?? 0),
     };
     return [...list].sort(sorters[filters.sort]);
   }, [scored, query, filters]);
 
   const activeFilters = Object.entries(filters).filter(([k, v]) => k !== 'sort' && v !== 'all').length;
-  const set = (key) => (e) => setFilters({ ...filters, [key]: e.target.value });
+  const set = (key) => (e) => {
+    setFilters({ ...filters, [key]: e.target.value });
+    setShown(PAGE_SIZE);
+  };
 
   if (loading) return <Loading />;
   if (error) return <ErrorBox error={error} onRetry={reload} />;
@@ -82,7 +89,10 @@ export default function CatalogPage() {
           <input
             type="search"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setShown(PAGE_SIZE);
+            }}
             placeholder="Search by name, module ID, topic or lecturer"
             className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
           />
@@ -176,13 +186,13 @@ export default function CatalogPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
         {results.length === 0 && <p className="md:col-span-2 text-sm text-slate-500 py-12 text-center">No courses match your search.</p>}
-        {results.map(({ course: c, match }) => {
+        {results.slice(0, shown).map(({ course: c, match }) => {
           const planned = plan.includes(c.course_id);
           return (
             <article key={c.course_id} className="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-xs flex flex-col hover:border-slate-300 transition">
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <div className="text-[11px] font-mono font-semibold text-blue-700">{c.course_id}</div>
+                  <div className="text-[11px] font-mono font-semibold text-blue-700">{c.module_code || c.course_id}</div>
                   <Link to={`/courses/${c.course_id}`} className="block text-base font-bold text-slate-900 tracking-tight mt-0.5 hover:text-blue-700 transition">
                     {c.course_name}
                   </Link>
@@ -192,16 +202,16 @@ export default function CatalogPage() {
                 )}
               </div>
               <div className="flex flex-wrap gap-1.5 mt-2.5">
-                <Tag>{c.ects} ECTS</Tag>
-                <Tag>{c.course_type}</Tag>
-                <Tag>{c.language}</Tag>
+                {c.ects != null && <Tag>{ectsLabel(c.ects)}</Tag>}
+                {c.course_type && <Tag>{c.course_type}</Tag>}
+                {c.language && <Tag>{c.language}</Tag>}
               </div>
-              <p className="text-xs text-slate-600 mt-3 leading-relaxed line-clamp-2">{c.module_description}</p>
+              <p className="text-xs text-slate-600 mt-3 leading-relaxed line-clamp-2">{c.module_description || 'No description in TUMonline yet.'}</p>
               <dl className="grid grid-cols-4 gap-2 mt-4 mb-4 text-center">
                 {[
                   ['Pass rate', formatPercent(c.grade_summary.pass_rate)],
                   ['Avg grade', formatGrade(c.grade_summary.average_grade)],
-                  ['Workload', `${c.workload_hours_per_week} h`],
+                  ['Workload', hoursLabel(c.workload_hours_per_week, ' h')],
                   ['Rating', c.rating.average == null ? '—' : `${c.rating.average.toFixed(1)} (${c.rating.count})`],
                 ].map(([k, v]) => (
                   <div key={k} className="bg-slate-50 rounded-lg py-2 px-1 min-w-0">
@@ -227,6 +237,17 @@ export default function CatalogPage() {
           );
         })}
       </div>
+      {results.length > shown && (
+        <div className="text-center mt-6">
+          <button
+            type="button"
+            onClick={() => setShown((n) => n + PAGE_SIZE)}
+            className="px-5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 hover:bg-slate-50 cursor-pointer"
+          >
+            Show more ({results.length - shown} left)
+          </button>
+        </div>
+      )}
     </div>
   );
 }

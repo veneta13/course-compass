@@ -82,7 +82,7 @@ export function AppStateProvider({ children }) {
         const description =
           result.kind === 'cv'
             ? `CV · ${result.skills.length} skills found`
-            : `Read ${result.modules.length} modules · ${ects} ECTS · grades included`;
+            : `Read ${result.modules.length} modules · ${ects} ECTS · ${result.modules.filter((m) => m.grade != null).length} with grades`;
         return {
           ...p,
           completedCourses: [...p.completedCourses, ...modules],

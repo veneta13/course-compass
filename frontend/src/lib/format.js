@@ -40,3 +40,16 @@ export function shortCourseName(name) {
 export function isHeavy(course) {
   return course.workload_hours_per_week >= 12;
 }
+
+// Fields the real database often doesn't have yet (ECTS, workload, times).
+export function ectsLabel(ects) {
+  return ects == null ? null : `${ects} ECTS`;
+}
+
+export function hoursLabel(hours, suffix = ' h / week') {
+  return hours == null ? '—' : `~${hours}${suffix}`;
+}
+
+export function sumOf(list, key) {
+  return list.reduce((s, x) => s + (Number(x[key]) || 0), 0);
+}

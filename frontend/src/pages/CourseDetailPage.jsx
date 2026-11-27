@@ -3,7 +3,7 @@ import { AlertTriangle, Check, CircleDashed, Minus, Plus, X } from 'lucide-react
 import { api } from '../api/client';
 import { useAsync } from '../lib/useAsync';
 import { useAppState } from '../state/AppState';
-import { formatDate, formatSemester, shortCourseName as shortName } from '../lib/format';
+import { ectsLabel, formatDate, formatSemester, shortCourseName as shortName, sumOf } from '../lib/format';
 import { coursesClash, formatSchedule, slotsClash } from '../lib/schedule';
 import { CURRENT_SEMESTER, DEGREE } from '../config';
 import { BackLink, Card, CautionItem, ErrorBox, Loading, MatchBadge, Stars, Tag } from '../components/ui';
@@ -44,27 +44,35 @@ export default function CourseDetailPage({ courseId }) {
   const others = (allCourses || []).filter((c) => plan.includes(c.course_id) && c.course_id !== course.course_id);
   const clashes = [
     ...others.filter((c) => coursesClash(c, course)),
-    ...profile.commitments.filter((m) => course.offering.schedule.some((s) => slotsClash(s, m))).map((m) => ({ course_name: `your ${m.label}` })),
+    ...profile.commitments.filter((m) => (course.offering.schedule || []).some((s) => slotsClash(s, m))).map((m) => ({ course_name: `your ${m.label}` })),
   ];
-  const totalEcts = others.reduce((s, c) => s + c.ects, 0) + course.ects;
-  const fitText = others.length
-    ? `Together with ${others.map((c) => shortName(c.course_name)).join(' and ')}, ${
-        clashes.length ? `it clashes with ${clashes.map((c) => shortName(c.course_name)).join(' and ')}` : 'there are no timetable clashes'
-      } and you land at ${totalEcts} ECTS${totalEcts > profile.targetEcts ? `, above your ${profile.targetEcts} ECTS target` : ''}.`
-    : `Your plan is empty. Adding it puts you at ${course.ects} of your ${profile.targetEcts} ECTS target.`;
+  const totalEcts = sumOf(others, 'ects') + (Number(course.ects) || 0);
+  const hasTimes = course.offering.schedule?.length > 0;
+  const ectsNote = course.ects == null ? " This course's ECTS aren't in TUMonline yet, so the total may be low." : '';
+  const fitText =
+    (others.length
+      ? `Together with ${others.map((c) => shortName(c.course_name)).join(' and ')}, ${
+          clashes.length
+            ? `it clashes with ${clashes.map((c) => shortName(c.course_name)).join(' and ')}`
+            : hasTimes
+              ? 'there are no timetable clashes'
+              : "we can't check for clashes yet (no lecture times published)"
+        } and you land at ${totalEcts} ECTS${totalEcts > profile.targetEcts ? `, above your ${profile.targetEcts} ECTS target` : ''}.`
+      : `Your plan is empty. Adding it puts you at ${totalEcts} of your ${profile.targetEcts} ECTS target.`) + ectsNote;
 
   const reviews = course.reviews;
   const shownReviews = showAllReviews ? reviews : reviews.slice(0, 3);
 
   const facts = [
     ['Schedule', formatSchedule(course.offering.schedule)],
-    ['Room', course.offering.room],
-    ['Lecturer', course.offering.lecturer],
-    ['Assessment', course.assessment_type],
+    course.offering.room && ['Room', course.offering.room],
+    course.offering.lecturer && ['Lecturer', course.offering.lecturer.replace(/; /g, ', ')],
+    course.assessment_type && ['Assessment', course.assessment_type],
+    course.ects != null && ['Credits', ectsLabel(course.ects)],
     course.team_size && ['Team size', course.team_size],
     course.applications_close && ['Applications close', formatDate(course.applications_close)],
-    ['Counts towards', `${course.degree_groups.join(', ')} (${DEGREE.degree_name})`],
-    ['Module ID', course.course_id],
+    ['Counts towards', course.degree_groups?.length ? `${course.degree_groups.join(', ')} (${DEGREE.degree_name})` : DEGREE.degree_name],
+    ['Module', course.module_code || course.course_id],
   ].filter(Boolean);
 
   const planButton = (variant) => (
@@ -91,9 +99,9 @@ export default function CourseDetailPage({ courseId }) {
       <BackLink to={hasProfile ? '/matches' : '/courses'}>{hasProfile ? 'Back to recommendations' : 'Back to catalog'}</BackLink>
 
       <div className="flex flex-wrap gap-1.5 mt-4">
-        <Tag>{course.ects} ECTS</Tag>
-        <Tag>{course.course_type}</Tag>
-        <Tag>{course.language}</Tag>
+        {course.ects != null && <Tag>{ectsLabel(course.ects)}</Tag>}
+        {course.course_type && <Tag>{course.course_type}</Tag>}
+        {course.language && <Tag>{course.language}</Tag>}
         <Tag tone="blue">Offered in {CURRENT_SEMESTER.short.toLowerCase()}</Tag>
       </div>
       <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mt-3">
@@ -117,7 +125,7 @@ export default function CourseDetailPage({ courseId }) {
               </div>
             ) : (
               <>
-                <p className="text-sm text-slate-600 leading-relaxed">{course.module_description}</p>
+                <p className="text-sm text-slate-600 leading-relaxed whitespace-pre-line">{course.module_description || 'TUMonline has no description for this course yet.'}</p>
                 <p className="text-xs text-slate-500 mt-4">
                   <a href="#/" className="text-blue-700 font-semibold underline">Tell us about your interests</a> to see how well this course fits you.
                 </p>
@@ -155,28 +163,44 @@ export default function CourseDetailPage({ courseId }) {
             <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-4">
               <h2 className="text-lg font-bold text-slate-900 tracking-tight">What students say</h2>
               <span className="text-xs text-slate-500 flex items-center gap-2">
-                <Stars value={rating.average ?? 0} size="w-3.5 h-3.5" /> {rating.average?.toFixed(1) ?? '—'} / 5 from {rating.count} reviews
+                {rating.count > 0 ? (
+                  <>
+                    <Stars value={rating.average ?? 0} size="w-3.5 h-3.5" /> {rating.average?.toFixed(1)} / 5 from {rating.count} rating{rating.count === 1 ? '' : 's'}
+                  </>
+                ) : (
+                  'No ratings yet'
+                )}
               </span>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div>
-                <h3 className="text-xs font-semibold text-emerald-700 mb-1.5">Mentioned most as positive</h3>
-                <p className="text-sm text-slate-600 leading-relaxed">{course.review_summary.positive}</p>
+            {course.review_summary && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <h3 className="text-xs font-semibold text-emerald-700 mb-1.5">Mentioned most as positive</h3>
+                  <p className="text-sm text-slate-600 leading-relaxed">{course.review_summary.positive}</p>
+                </div>
+                <div>
+                  <h3 className="text-xs font-semibold text-amber-800 mb-1.5">Mentioned most as negative</h3>
+                  <p className="text-sm text-slate-600 leading-relaxed">{course.review_summary.negative}</p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-xs font-semibold text-amber-800 mb-1.5">Mentioned most as negative</h3>
-                <p className="text-sm text-slate-600 leading-relaxed">{course.review_summary.negative}</p>
-              </div>
-            </div>
+            )}
+            {!course.review_summary && reviews.length === 0 && (
+              <p className="text-sm text-slate-500">
+                No reviews yet.{' '}
+                <a href="#contribute" className="text-blue-700 font-semibold hover:underline">
+                  Be the first to share your experience.
+                </a>
+              </p>
+            )}
 
             {reviews.length > 0 && (
-              <div className="mt-6 pt-5 border-t border-slate-100">
+              <div className={course.review_summary ? 'mt-6 pt-5 border-t border-slate-100' : ''}>
                 <h3 className="text-sm font-semibold text-slate-900 mb-3">Recent reviews</h3>
                 <ul className="space-y-4">
                   {shownReviews.map((r) => (
                     <li key={r.review_id} className="text-sm">
                       <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500">
-                        <Stars value={r.rating} size="w-3.5 h-3.5" />
+                        {r.rating != null && <Stars value={r.rating} size="w-3.5 h-3.5" />}
                         <span>{formatSemester(r.semester)}</span>
                         {r.workload_hours ? <span>· ~{r.workload_hours} h / week</span> : null}
                       </div>
@@ -191,9 +215,11 @@ export default function CourseDetailPage({ courseId }) {
                 )}
               </div>
             )}
-            <p className="text-[11px] text-slate-400 mt-5 pt-4 border-t border-slate-100">
-              Opinions are paraphrased and weighted towards recent semesters. Sentiment is a summary, not an endorsement.
-            </p>
+            {course.review_summary && (
+              <p className="text-[11px] text-slate-400 mt-5 pt-4 border-t border-slate-100">
+                Opinions are paraphrased and weighted towards recent semesters. Sentiment is a summary, not an endorsement.
+              </p>
+            )}
           </Card>
 
           <Card id="contribute">
@@ -227,6 +253,13 @@ export default function CourseDetailPage({ courseId }) {
             {clashes.length > 0 && <p className="text-xs text-amber-300 mt-2">Check the timetable on your plan before registering.</p>}
             <div className="mt-4">{planButton('dark')}</div>
           </div>
+
+          {prerequisites.length === 0 && course.prerequisites_text && (
+            <Card>
+              <h2 className="text-base font-bold text-slate-900 mb-2">Recommended background</h2>
+              <p className="text-xs text-slate-600 leading-relaxed whitespace-pre-line">{course.prerequisites_text}</p>
+            </Card>
+          )}
 
           {prerequisites.length > 0 && (
             <Card>

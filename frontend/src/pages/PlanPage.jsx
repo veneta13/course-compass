@@ -7,6 +7,7 @@ import { Link } from '../lib/router';
 import { ALL_DAYS, DAYS, findClashes, formatSchedule, toMinutes } from '../lib/schedule';
 import { downloadIcs } from '../lib/calendar';
 import { CURRENT_SEMESTER } from '../config';
+import { ectsLabel, hoursLabel, sumOf } from '../lib/format';
 import { Card, ErrorBox, Loading, Tag } from '../components/ui';
 
 const START = 8 * 60;
@@ -20,7 +21,7 @@ const inputCls =
 function toBlocks(courses, commitments) {
   return [
     ...courses.flatMap((c) =>
-      c.offering.schedule.map((s) => ({ key: `${c.course_id}-${s.day}-${s.start}`, id: c.course_id, kind: 'course', title: c.course_name, link: `/courses/${c.course_id}`, ...s })),
+      (c.offering.schedule || []).map((s) => ({ key: `${c.course_id}-${s.day}-${s.start}`, id: c.course_id, kind: 'course', title: c.course_name, link: `/courses/${c.course_id}`, ...s })),
     ),
     ...commitments.map((m) => ({ key: m.id, id: m.id, kind: 'commitment', title: m.label, day: m.day, start: m.start, end: m.end })),
   ];
@@ -230,8 +231,9 @@ export default function PlanPage() {
   if (error) return <ErrorBox error={error} onRetry={reload} />;
 
   const planned = courses.filter((c) => plan.includes(c.course_id));
-  const ects = planned.reduce((s, c) => s + c.ects, 0);
-  const hours = planned.reduce((s, c) => s + c.workload_hours_per_week, 0);
+  const ects = sumOf(planned, 'ects');
+  const hours = sumOf(planned, 'workload_hours_per_week');
+  const missingData = planned.filter((c) => c.ects == null || !c.offering.schedule?.length);
   const clashes = findClashes(planned, profile.commitments);
   const clashingIds = new Set(clashes.flatMap((c) => c.ids));
   const ectsPct = Math.min(100, Math.round((ects / profile.targetEcts) * 100));
@@ -280,6 +282,12 @@ export default function PlanPage() {
         </Card>
       </div>
 
+      {missingData.length > 0 && (
+        <p className="mt-4 text-xs text-slate-500">
+          {missingData.length} planned course{missingData.length > 1 ? 's have' : ' has'} no ECTS or lecture times in TUMonline yet, so the totals and clash check may be incomplete.
+        </p>
+      )}
+
       {clashes.length > 0 && (
         <div className="mt-4 p-4 rounded-xl bg-amber-50 border border-amber-200 text-sm text-amber-900 space-y-1">
           {clashes.map((c) => (
@@ -321,8 +329,8 @@ export default function PlanPage() {
                         {c.course_name}
                       </Link>
                       <div className="flex flex-wrap gap-1.5 mt-1.5">
-                        <Tag>{c.ects} ECTS</Tag>
-                        <Tag>~{c.workload_hours_per_week} h</Tag>
+                        {c.ects != null && <Tag>{ectsLabel(c.ects)}</Tag>}
+                        {c.workload_hours_per_week != null && <Tag>{hoursLabel(c.workload_hours_per_week, ' h')}</Tag>}
                         {clashingIds.has(c.course_id) && <Tag tone="amber">Clash</Tag>}
                       </div>
                       <div className="text-[11px] text-slate-500 mt-1.5">{formatSchedule(c.offering.schedule)}</div>

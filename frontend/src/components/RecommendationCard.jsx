@@ -1,6 +1,6 @@
 import { Check, ChevronRight, Plus } from 'lucide-react';
 import { Link } from '../lib/router';
-import { formatGrade, formatPercent } from '../lib/format';
+import { ectsLabel, formatGrade, formatPercent, hoursLabel } from '../lib/format';
 import { formatSchedule } from '../lib/schedule';
 import { CautionItem, MatchBadge, StatTile, Tag } from './ui';
 import { useAppState } from '../state/AppState';
@@ -22,9 +22,9 @@ export default function RecommendationCard({ rank, result, clashWith }) {
               {course.course_name}
             </Link>
             <div className="flex flex-wrap gap-1.5 mt-2">
-              <Tag>{course.ects} ECTS</Tag>
-              <Tag>{course.course_type}</Tag>
-              <Tag>{course.language}</Tag>
+              {course.ects != null && <Tag>{ectsLabel(course.ects)}</Tag>}
+              {course.course_type && <Tag>{course.course_type}</Tag>}
+              {course.language && <Tag>{course.language}</Tag>}
               {clashLabel ? (
                 <Tag tone="amber">Clashes with {clashLabel}</Tag>
               ) : (
@@ -41,7 +41,7 @@ export default function RecommendationCard({ rank, result, clashWith }) {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 mt-5">
         <StatTile label="Pass rate" value={formatPercent(grades.pass_rate)} />
         <StatTile label="Average grade" value={formatGrade(grades.average_grade)} />
-        <StatTile label="Workload" value={`~${course.workload_hours_per_week} h / week`} />
+        <StatTile label="Workload" value={hoursLabel(course.workload_hours_per_week)} />
         <StatTile label="Student rating" value={rating.average == null ? '—' : `${rating.average.toFixed(1)} / 5`} sub={`${rating.count} reviews`} />
       </div>
 
@@ -72,7 +72,7 @@ export default function RecommendationCard({ rank, result, clashWith }) {
       </div>
 
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-4 pt-4 border-t border-slate-100">
-        <p className="text-xs text-slate-500 leading-relaxed">Students say: {course.review_summary.oneLiner}</p>
+        <p className="text-xs text-slate-500 leading-relaxed">{course.review_summary?.oneLiner ? `Students say: ${course.review_summary.oneLiner}` : ''}</p>
         <div className="flex gap-2 shrink-0">
           <button
             type="button"

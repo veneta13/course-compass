@@ -14,7 +14,7 @@ export function slotsClash(a, b) {
 }
 
 export function coursesClash(a, b) {
-  return a.offering.schedule.some((sa) => b.offering.schedule.some((sb) => slotsClash(sa, sb)));
+  return (a.offering.schedule || []).some((sa) => (b.offering.schedule || []).some((sb) => slotsClash(sa, sb)));
 }
 
 // Every clash in a plan: course vs. course and course vs. commitment.
@@ -28,7 +28,7 @@ export function findClashes(courses, commitments = []) {
       }
     }
     for (const c of commitments) {
-      if (courses[i].offering.schedule.some((s) => slotsClash(s, c))) {
+      if ((courses[i].offering.schedule || []).some((s) => slotsClash(s, c))) {
         clashes.push({ a: courses[i].course_name, b: `your ${c.label} (${c.day} ${c.start}–${c.end})`, ids: [courses[i].course_id, c.id] });
       }
     }
@@ -37,5 +37,6 @@ export function findClashes(courses, commitments = []) {
 }
 
 export function formatSchedule(schedule = []) {
+  if (!schedule?.length) return 'Times not published yet';
   return schedule.map((s) => `${s.day} ${s.start}–${s.end}`).join(' · ');
 }

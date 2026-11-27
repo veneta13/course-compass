@@ -32,6 +32,30 @@ Each import has its own module in `src/course_compass/importers`. Run it after t
 |---|---|---|
 | Grade distributions | `python -m course_compass.importers.grade_distributions` | [Docs](docs/grade-distributions.md) |
 
+## Backend API
+
+The frontend talks to a FastAPI app in `src/course_compass/api`. It needs the database from [Getting started](#getting-started); restoring `database_backups/tum_courses_with_grades.dump` is enough.
+
+1. Install the project with the extra for reading transcripts:
+
+   ```
+   pip install -e ".[documents]"
+   ```
+
+2. Add the review and upload tables to the database. This is safe to run again:
+
+   ```
+   python -m course_compass.setup_db
+   ```
+
+3. Start the API on port 8000:
+
+   ```
+   uvicorn course_compass.api.app:app --reload --port 8000
+   ```
+
+Uploading a transcript or CV also needs Ollama with `llama3.1:8b`; see [Transcript & CV Reader](#transcript--cv-reader). Recommendations answer "not available yet" until the recommender is merged. [Frontend API contract](docs/frontend-api.md) lists every route.
+
 ## Frontend
 
 The web user interface is built with React, Vite, and Tailwind CSS.
@@ -65,6 +89,7 @@ frontend/               React + Vite + Tailwind CSS web interface
     src/demo/           Demo fixtures and mock backend (npm run demo)
     src/pages/          One component per screen
 src/course_compass/
+    api/                FastAPI app the frontend talks to
     database.py         Database connection pool
     schema.sql          Tables, indexes and views
     setup_db.py         Creates the database and applies the schema

@@ -43,8 +43,8 @@ function event({ uid, title, location, description, slot }) {
 export function buildIcs(courses, commitments = []) {
   const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Course Compass//Semester plan//EN', 'CALSCALE:GREGORIAN', `X-WR-CALNAME:${CURRENT_SEMESTER.short}`];
   for (const c of courses) {
-    c.offering.schedule.forEach((slot, i) => {
-      lines.push(...event({ uid: `${c.course_id}-${i}`, title: c.course_name, location: c.offering.room, description: `${c.course_id} · ${c.ects} ECTS · ${c.offering.lecturer || ''}`, slot }));
+    (c.offering.schedule || []).forEach((slot, i) => {
+      lines.push(...event({ uid: `${c.course_id}-${i}`, title: c.course_name, location: c.offering.room, description: [c.module_code || c.course_id, c.ects != null ? `${c.ects} ECTS` : null, c.offering.lecturer].filter(Boolean).join(' · '), slot }));
     });
   }
   for (const m of commitments) {

@@ -34,7 +34,8 @@ export default function ProfileInsightsCard() {
   // Ask the backend (Profile builder) once typing pauses.
   const inputs = useDebounced(profile);
   const key = JSON.stringify([inputs.interestText, inputs.completedCourses, inputs.skills, inputs.languagePref, inputs.maxHoursPerWeek]);
-  const { data } = useAsync(() => api.getProfileInsights(inputs), [key]);
+  const { data, error } = useAsync(() => api.getProfileInsights(inputs), [key]);
+  const notConnected = error?.status === 501;
   const insights = data || EMPTY;
   const hasData = profile.interestText.trim().length > 0 || profile.completedCourses.length > 0 || profile.skills.length > 0;
   const style = insights.learning_style;
@@ -46,7 +47,11 @@ export default function ProfileInsightsCard() {
         <span className={`w-2 h-2 rounded-full ${hasData ? 'bg-emerald-400' : 'bg-slate-500'}`} aria-hidden />
       </div>
 
-      {!hasData ? (
+      {notConnected && hasData ? (
+        <p className="text-xs text-slate-400 leading-relaxed">
+          Your saved inputs will be analysed here once the recommender is connected to the server.
+        </p>
+      ) : !hasData ? (
         <div className="py-6 px-4 rounded-xl bg-slate-900/60 border border-slate-800 text-center space-y-2">
           <Info className="w-6 h-6 text-slate-500 mx-auto" />
           <p className="text-xs text-slate-400 max-w-xs mx-auto leading-relaxed">

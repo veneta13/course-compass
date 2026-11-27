@@ -23,4 +23,5 @@ export const CURRENT_SEMESTER = {
   lecturesEnd: '2027-02-12',
 };
 
-export const DEGREE = { degree_id: 'MSC-INF', degree_name: 'M.Sc. Informatics' };
+// degree_id is the key used in course_degrees (see the TUMonline importer's DEGREES).
+export const DEGREE = { degree_id: 'master-informatics', degree_name: 'M.Sc. Informatics' };
