@@ -1,0 +1,2685 @@
+[
+ {
+  "courseId": "66b288e4d34856d36eb29db5",
+  "tumonlineCourseId": "950606295",
+  "courseNumber": "0000004139",
+  "semester": "2022 S",
+  "exam": "endterm",
+  "peopleTotal": 80,
+  "attemptsTotal": 55,
+  "peopleAttemptsFailed": 1,
+  "attemptsFailedPercentage": 1.82,
+  "averageAttemptsTotal": 2.09,
+  "averageAttemptsPassed": 2.04,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 7
+   },
+   {
+    "grade": "1.3",
+    "people": 2
+   },
+   {
+    "grade": "1.7",
+    "people": 13
+   },
+   {
+    "grade": "2.0",
+    "people": 11
+   },
+   {
+    "grade": "2.3",
+    "people": 9
+   },
+   {
+    "grade": "2.7",
+    "people": 6
+   },
+   {
+    "grade": "3.0",
+    "people": 3
+   },
+   {
+    "grade": "3.3",
+    "people": 2
+   },
+   {
+    "grade": "3.7",
+    "people": 1
+   },
+   {
+    "grade": "5.0",
+    "people": 1
+   },
+   {
+    "grade": "6.0",
+    "people": 25
+   }
+  ]
+ },
+ {
+  "courseId": "66b289f7d34856d36eb2ba01",
+  "tumonlineCourseId": "950630562",
+  "courseNumber": "240914026",
+  "semester": "2023 W",
+  "exam": "endterm",
+  "peopleTotal": 130,
+  "attemptsTotal": 89,
+  "peopleAttemptsFailed": 26,
+  "attemptsFailedPercentage": 29.21,
+  "averageAttemptsTotal": 3.06,
+  "averageAttemptsPassed": 2.36,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 12
+   },
+   {
+    "grade": "1.3",
+    "people": 4
+   },
+   {
+    "grade": "1.7",
+    "people": 3
+   },
+   {
+    "grade": "2.0",
+    "people": 7
+   },
+   {
+    "grade": "2.3",
+    "people": 6
+   },
+   {
+    "grade": "2.7",
+    "people": 11
+   },
+   {
+    "grade": "3.0",
+    "people": 3
+   },
+   {
+    "grade": "3.3",
+    "people": 9
+   },
+   {
+    "grade": "3.7",
+    "people": 6
+   },
+   {
+    "grade": "4.0",
+    "people": 2
+   },
+   {
+    "grade": "4.3",
+    "people": 8
+   },
+   {
+    "grade": "4.7",
+    "people": 2
+   },
+   {
+    "grade": "5.0",
+    "people": 16
+   },
+   {
+    "grade": "6.0",
+    "people": 41
+   }
+  ]
+ },
+ {
+  "courseId": "66b28661d34856d36eb25b6f",
+  "tumonlineCourseId": "950604503",
+  "courseNumber": "0000002506",
+  "semester": "2023 S",
+  "exam": "endterm",
+  "peopleTotal": 95,
+  "attemptsTotal": 56,
+  "peopleAttemptsFailed": 9,
+  "attemptsFailedPercentage": 16.07,
+  "averageAttemptsTotal": 2.73,
+  "averageAttemptsPassed": 2.34,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 8
+   },
+   {
+    "grade": "1.4",
+    "people": 3
+   },
+   {
+    "grade": "1.7",
+    "people": 4
+   },
+   {
+    "grade": "2.0",
+    "people": 5
+   },
+   {
+    "grade": "2.3",
+    "people": 1
+   },
+   {
+    "grade": "2.4",
+    "people": 4
+   },
+   {
+    "grade": "2.7",
+    "people": 5
+   },
+   {
+    "grade": "3.0",
+    "people": 8
+   },
+   {
+    "grade": "3.3",
+    "people": 2
+   },
+   {
+    "grade": "3.4",
+    "people": 4
+   },
+   {
+    "grade": "3.7",
+    "people": 2
+   },
+   {
+    "grade": "4.0",
+    "people": 1
+   },
+   {
+    "grade": "4.3",
+    "people": 1
+   },
+   {
+    "grade": "4.7",
+    "people": 4
+   },
+   {
+    "grade": "5.0",
+    "people": 4
+   },
+   {
+    "grade": "6.0",
+    "people": 39
+   }
+  ]
+ },
+ {
+  "courseId": "66b28661d34856d36eb25b6f",
+  "tumonlineCourseId": "950604503",
+  "courseNumber": "0000002506",
+  "semester": "2022 S",
+  "exam": "endterm",
+  "peopleTotal": 28,
+  "attemptsTotal": 12,
+  "peopleAttemptsFailed": 2,
+  "attemptsFailedPercentage": 16.67,
+  "averageAttemptsTotal": 2.69,
+  "averageAttemptsPassed": 2.3,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 3
+   },
+   {
+    "grade": "2.0",
+    "people": 1
+   },
+   {
+    "grade": "2.3",
+    "people": 1
+   },
+   {
+    "grade": "2.7",
+    "people": 1
+   },
+   {
+    "grade": "3.0",
+    "people": 2
+   },
+   {
+    "grade": "3.3",
+    "people": 1
+   },
+   {
+    "grade": "3.7",
+    "people": 1
+   },
+   {
+    "grade": "4.3",
+    "people": 1
+   },
+   {
+    "grade": "5.0",
+    "people": 1
+   },
+   {
+    "grade": "6.0",
+    "people": 16
+   }
+  ]
+ },
+ {
+  "courseId": "66b2867cd34856d36eb25e4b",
+  "tumonlineCourseId": "950605148",
+  "courseNumber": "0000001742",
+  "semester": "2022 S",
+  "exam": "endterm",
+  "peopleTotal": 290,
+  "attemptsTotal": 184,
+  "peopleAttemptsFailed": 20,
+  "attemptsFailedPercentage": 10.87,
+  "averageAttemptsTotal": 2.74,
+  "averageAttemptsPassed": 2.49,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 15
+   },
+   {
+    "grade": "1.3",
+    "people": 9
+   },
+   {
+    "grade": "1.7",
+    "people": 18
+   },
+   {
+    "grade": "2.0",
+    "people": 17
+   },
+   {
+    "grade": "2.3",
+    "people": 30
+   },
+   {
+    "grade": "2.7",
+    "people": 14
+   },
+   {
+    "grade": "3.0",
+    "people": 19
+   },
+   {
+    "grade": "3.3",
+    "people": 13
+   },
+   {
+    "grade": "3.7",
+    "people": 17
+   },
+   {
+    "grade": "4.0",
+    "people": 12
+   },
+   {
+    "grade": "4.3",
+    "people": 5
+   },
+   {
+    "grade": "4.7",
+    "people": 3
+   },
+   {
+    "grade": "5.0",
+    "people": 12
+   },
+   {
+    "grade": "6.0",
+    "people": 106
+   }
+  ]
+ },
+ {
+  "courseId": "66b28695d34856d36eb260e5",
+  "tumonlineCourseId": "950604758",
+  "courseNumber": "0000000253",
+  "semester": "2022 S",
+  "exam": "endterm",
+  "peopleTotal": 613,
+  "attemptsTotal": 461,
+  "peopleAttemptsFailed": 93,
+  "attemptsFailedPercentage": 20.17,
+  "averageAttemptsTotal": 3.09,
+  "averageAttemptsPassed": 2.68,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 17
+   },
+   {
+    "grade": "1.3",
+    "people": 18
+   },
+   {
+    "grade": "1.7",
+    "people": 33
+   },
+   {
+    "grade": "2.0",
+    "people": 32
+   },
+   {
+    "grade": "2.3",
+    "people": 49
+   },
+   {
+    "grade": "2.7",
+    "people": 56
+   },
+   {
+    "grade": "3.0",
+    "people": 47
+   },
+   {
+    "grade": "3.3",
+    "people": 44
+   },
+   {
+    "grade": "3.7",
+    "people": 38
+   },
+   {
+    "grade": "4.0",
+    "people": 34
+   },
+   {
+    "grade": "4.3",
+    "people": 34
+   },
+   {
+    "grade": "4.7",
+    "people": 20
+   },
+   {
+    "grade": "5.0",
+    "people": 39
+   },
+   {
+    "grade": "6.0",
+    "people": 152
+   }
+  ]
+ },
+ {
+  "courseId": "66b286aad34856d36eb26316",
+  "tumonlineCourseId": "950602756",
+  "courseNumber": "240945905",
+  "semester": "2024 S",
+  "exam": "endterm",
+  "peopleTotal": 285,
+  "attemptsTotal": 183,
+  "peopleAttemptsFailed": 38,
+  "attemptsFailedPercentage": 20.77,
+  "averageAttemptsTotal": 3.31,
+  "averageAttemptsPassed": 3.02,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 2
+   },
+   {
+    "grade": "1.3",
+    "people": 1
+   },
+   {
+    "grade": "1.5",
+    "people": 4
+   },
+   {
+    "grade": "1.6",
+    "people": 1
+   },
+   {
+    "grade": "1.7",
+    "people": 1
+   },
+   {
+    "grade": "1.8",
+    "people": 2
+   },
+   {
+    "grade": "1.9",
+    "people": 3
+   },
+   {
+    "grade": "2.1",
+    "people": 5
+   },
+   {
+    "grade": "2.2",
+    "people": 5
+   },
+   {
+    "grade": "2.3",
+    "people": 2
+   },
+   {
+    "grade": "2.4",
+    "people": 7
+   },
+   {
+    "grade": "2.5",
+    "people": 4
+   },
+   {
+    "grade": "2.6",
+    "people": 5
+   },
+   {
+    "grade": "2.7",
+    "people": 6
+   },
+   {
+    "grade": "2.8",
+    "people": 7
+   },
+   {
+    "grade": "2.9",
+    "people": 7
+   },
+   {
+    "grade": "3.0",
+    "people": 4
+   },
+   {
+    "grade": "3.1",
+    "people": 9
+   },
+   {
+    "grade": "3.2",
+    "people": 9
+   },
+   {
+    "grade": "3.3",
+    "people": 8
+   },
+   {
+    "grade": "3.4",
+    "people": 3
+   },
+   {
+    "grade": "3.5",
+    "people": 4
+   },
+   {
+    "grade": "3.6",
+    "people": 12
+   },
+   {
+    "grade": "3.7",
+    "people": 8
+   },
+   {
+    "grade": "3.8",
+    "people": 4
+   },
+   {
+    "grade": "3.9",
+    "people": 9
+   },
+   {
+    "grade": "4.0",
+    "people": 13
+   },
+   {
+    "grade": "4.3",
+    "people": 32
+   },
+   {
+    "grade": "4.7",
+    "people": 2
+   },
+   {
+    "grade": "5.0",
+    "people": 4
+   },
+   {
+    "grade": "6.0",
+    "people": 102
+   }
+  ]
+ },
+ {
+  "courseId": "66b286aad34856d36eb26316",
+  "tumonlineCourseId": "950602756",
+  "courseNumber": "240945905",
+  "semester": "2023 S",
+  "exam": "endterm",
+  "peopleTotal": 326,
+  "attemptsTotal": 237,
+  "peopleAttemptsFailed": 89,
+  "attemptsFailedPercentage": 37.55,
+  "averageAttemptsTotal": 3.51,
+  "averageAttemptsPassed": 2.98,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 2
+   },
+   {
+    "grade": "1.3",
+    "people": 8
+   },
+   {
+    "grade": "1.7",
+    "people": 4
+   },
+   {
+    "grade": "2.0",
+    "people": 10
+   },
+   {
+    "grade": "2.3",
+    "people": 11
+   },
+   {
+    "grade": "2.7",
+    "people": 19
+   },
+   {
+    "grade": "3.0",
+    "people": 23
+   },
+   {
+    "grade": "3.3",
+    "people": 26
+   },
+   {
+    "grade": "3.7",
+    "people": 31
+   },
+   {
+    "grade": "4.0",
+    "people": 14
+   },
+   {
+    "grade": "4.3",
+    "people": 74
+   },
+   {
+    "grade": "4.7",
+    "people": 12
+   },
+   {
+    "grade": "5.0",
+    "people": 3
+   },
+   {
+    "grade": "6.0",
+    "people": 89
+   }
+  ]
+ },
+ {
+  "courseId": "66b2892fd34856d36eb2a56a",
+  "tumonlineCourseId": "950658774",
+  "courseNumber": "0000002619",
+  "semester": "2023 W",
+  "exam": "endterm",
+  "peopleTotal": 420,
+  "attemptsTotal": 264,
+  "peopleAttemptsFailed": 59,
+  "attemptsFailedPercentage": 22.35,
+  "averageAttemptsTotal": 3.22,
+  "averageAttemptsPassed": 2.77,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 10
+   },
+   {
+    "grade": "1.3",
+    "people": 9
+   },
+   {
+    "grade": "1.7",
+    "people": 13
+   },
+   {
+    "grade": "2.0",
+    "people": 18
+   },
+   {
+    "grade": "2.3",
+    "people": 22
+   },
+   {
+    "grade": "2.7",
+    "people": 24
+   },
+   {
+    "grade": "3.0",
+    "people": 33
+   },
+   {
+    "grade": "3.3",
+    "people": 33
+   },
+   {
+    "grade": "3.7",
+    "people": 27
+   },
+   {
+    "grade": "4.0",
+    "people": 16
+   },
+   {
+    "grade": "4.3",
+    "people": 11
+   },
+   {
+    "grade": "4.7",
+    "people": 12
+   },
+   {
+    "grade": "5.0",
+    "people": 36
+   },
+   {
+    "grade": "6.0",
+    "people": 156
+   }
+  ]
+ },
+ {
+  "courseId": "66b286acd34856d36eb26340",
+  "tumonlineCourseId": "950602561",
+  "courseNumber": "0000000533",
+  "semester": "2022 S",
+  "exam": "endterm",
+  "peopleTotal": 286,
+  "attemptsTotal": 214,
+  "peopleAttemptsFailed": 59,
+  "attemptsFailedPercentage": 27.57,
+  "averageAttemptsTotal": 3.28,
+  "averageAttemptsPassed": 2.69,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 9
+   },
+   {
+    "grade": "1.3",
+    "people": 9
+   },
+   {
+    "grade": "1.7",
+    "people": 16
+   },
+   {
+    "grade": "2.0",
+    "people": 15
+   },
+   {
+    "grade": "2.3",
+    "people": 15
+   },
+   {
+    "grade": "2.7",
+    "people": 17
+   },
+   {
+    "grade": "3.0",
+    "people": 19
+   },
+   {
+    "grade": "3.3",
+    "people": 20
+   },
+   {
+    "grade": "3.7",
+    "people": 17
+   },
+   {
+    "grade": "4.0",
+    "people": 18
+   },
+   {
+    "grade": "4.3",
+    "people": 10
+   },
+   {
+    "grade": "4.7",
+    "people": 7
+   },
+   {
+    "grade": "5.0",
+    "people": 42
+   },
+   {
+    "grade": "6.0",
+    "people": 72
+   }
+  ]
+ },
+ {
+  "courseId": "66b286aed34856d36eb26385",
+  "tumonlineCourseId": "950603363",
+  "courseNumber": "0000002061",
+  "semester": "2022 S",
+  "exam": "retake",
+  "peopleTotal": 136,
+  "attemptsTotal": 98,
+  "peopleAttemptsFailed": 20,
+  "attemptsFailedPercentage": 20.41,
+  "averageAttemptsTotal": 2.83,
+  "averageAttemptsPassed": 2.35,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 12
+   },
+   {
+    "grade": "1.3",
+    "people": 8
+   },
+   {
+    "grade": "1.7",
+    "people": 7
+   },
+   {
+    "grade": "2.0",
+    "people": 7
+   },
+   {
+    "grade": "2.3",
+    "people": 8
+   },
+   {
+    "grade": "2.7",
+    "people": 14
+   },
+   {
+    "grade": "3.0",
+    "people": 4
+   },
+   {
+    "grade": "3.3",
+    "people": 6
+   },
+   {
+    "grade": "3.7",
+    "people": 4
+   },
+   {
+    "grade": "4.0",
+    "people": 8
+   },
+   {
+    "grade": "4.3",
+    "people": 7
+   },
+   {
+    "grade": "4.7",
+    "people": 2
+   },
+   {
+    "grade": "5.0",
+    "people": 11
+   },
+   {
+    "grade": "6.0",
+    "people": 38
+   }
+  ]
+ },
+ {
+  "courseId": "66b28933d34856d36eb2a5d6",
+  "tumonlineCourseId": "950632193",
+  "courseNumber": "0000000435",
+  "semester": "2023 W",
+  "exam": "retake",
+  "peopleTotal": 99,
+  "attemptsTotal": 53,
+  "peopleAttemptsFailed": 12,
+  "attemptsFailedPercentage": 22.64,
+  "averageAttemptsTotal": 3.36,
+  "averageAttemptsPassed": 2.96,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 1
+   },
+   {
+    "grade": "1.3",
+    "people": 2
+   },
+   {
+    "grade": "1.7",
+    "people": 2
+   },
+   {
+    "grade": "2.0",
+    "people": 2
+   },
+   {
+    "grade": "2.3",
+    "people": 4
+   },
+   {
+    "grade": "2.7",
+    "people": 7
+   },
+   {
+    "grade": "3.0",
+    "people": 4
+   },
+   {
+    "grade": "3.3",
+    "people": 5
+   },
+   {
+    "grade": "3.7",
+    "people": 7
+   },
+   {
+    "grade": "4.0",
+    "people": 7
+   },
+   {
+    "grade": "4.3",
+    "people": 4
+   },
+   {
+    "grade": "4.7",
+    "people": 2
+   },
+   {
+    "grade": "5.0",
+    "people": 6
+   },
+   {
+    "grade": "6.0",
+    "people": 46
+   }
+  ]
+ },
+ {
+  "courseId": "66b286afd34856d36eb263a3",
+  "tumonlineCourseId": "950605544",
+  "courseNumber": "0000002592",
+  "semester": "2022 S",
+  "exam": "endterm",
+  "peopleTotal": 304,
+  "attemptsTotal": 248,
+  "peopleAttemptsFailed": 27,
+  "attemptsFailedPercentage": 10.89,
+  "averageAttemptsTotal": 2.58,
+  "averageAttemptsPassed": 2.32,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 13
+   },
+   {
+    "grade": "1.3",
+    "people": 22
+   },
+   {
+    "grade": "1.7",
+    "people": 39
+   },
+   {
+    "grade": "2.0",
+    "people": 41
+   },
+   {
+    "grade": "2.3",
+    "people": 21
+   },
+   {
+    "grade": "2.7",
+    "people": 23
+   },
+   {
+    "grade": "3.0",
+    "people": 20
+   },
+   {
+    "grade": "3.3",
+    "people": 17
+   },
+   {
+    "grade": "3.7",
+    "people": 14
+   },
+   {
+    "grade": "4.0",
+    "people": 11
+   },
+   {
+    "grade": "4.3",
+    "people": 8
+   },
+   {
+    "grade": "4.7",
+    "people": 10
+   },
+   {
+    "grade": "5.0",
+    "people": 9
+   },
+   {
+    "grade": "6.0",
+    "people": 56
+   }
+  ]
+ },
+ {
+  "courseId": "66b286afd34856d36eb263a3",
+  "tumonlineCourseId": "950605544",
+  "courseNumber": "0000002592",
+  "semester": "2022 W",
+  "exam": "endterm",
+  "peopleTotal": 462,
+  "attemptsTotal": 391,
+  "peopleAttemptsFailed": 54,
+  "attemptsFailedPercentage": 13.81,
+  "averageAttemptsTotal": 2.75,
+  "averageAttemptsPassed": 2.42,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 16
+   },
+   {
+    "grade": "1.3",
+    "people": 22
+   },
+   {
+    "grade": "1.7",
+    "people": 56
+   },
+   {
+    "grade": "2.0",
+    "people": 46
+   },
+   {
+    "grade": "2.3",
+    "people": 48
+   },
+   {
+    "grade": "2.7",
+    "people": 47
+   },
+   {
+    "grade": "3.0",
+    "people": 31
+   },
+   {
+    "grade": "3.3",
+    "people": 31
+   },
+   {
+    "grade": "3.7",
+    "people": 26
+   },
+   {
+    "grade": "4.0",
+    "people": 14
+   },
+   {
+    "grade": "4.3",
+    "people": 13
+   },
+   {
+    "grade": "4.7",
+    "people": 14
+   },
+   {
+    "grade": "5.0",
+    "people": 27
+   },
+   {
+    "grade": "6.0",
+    "people": 71
+   }
+  ]
+ },
+ {
+  "courseId": "66b28b29d34856d36eb2d90a",
+  "tumonlineCourseId": "950702078",
+  "courseNumber": "0000001204",
+  "semester": "2024 S",
+  "exam": "endterm",
+  "peopleTotal": 125,
+  "attemptsTotal": 66,
+  "peopleAttemptsFailed": 23,
+  "attemptsFailedPercentage": 34.85,
+  "averageAttemptsTotal": 3.17,
+  "averageAttemptsPassed": 2.26,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 13
+   },
+   {
+    "grade": "1.3",
+    "people": 5
+   },
+   {
+    "grade": "1.7",
+    "people": 3
+   },
+   {
+    "grade": "2.3",
+    "people": 3
+   },
+   {
+    "grade": "2.7",
+    "people": 2
+   },
+   {
+    "grade": "3.0",
+    "people": 5
+   },
+   {
+    "grade": "3.3",
+    "people": 2
+   },
+   {
+    "grade": "3.7",
+    "people": 4
+   },
+   {
+    "grade": "4.0",
+    "people": 6
+   },
+   {
+    "grade": "4.3",
+    "people": 3
+   },
+   {
+    "grade": "4.7",
+    "people": 4
+   },
+   {
+    "grade": "5.0",
+    "people": 16
+   },
+   {
+    "grade": "6.0",
+    "people": 59
+   }
+  ]
+ },
+ {
+  "courseId": "66b286b6d34856d36eb2644b",
+  "tumonlineCourseId": "950603097",
+  "courseNumber": "0000002432",
+  "semester": "2022 S",
+  "exam": "endterm",
+  "peopleTotal": 122,
+  "attemptsTotal": 78,
+  "peopleAttemptsFailed": 27,
+  "attemptsFailedPercentage": 34.62,
+  "averageAttemptsTotal": 3.09,
+  "averageAttemptsPassed": 2.08,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 18
+   },
+   {
+    "grade": "1.3",
+    "people": 6
+   },
+   {
+    "grade": "1.7",
+    "people": 3
+   },
+   {
+    "grade": "2.0",
+    "people": 5
+   },
+   {
+    "grade": "2.3",
+    "people": 2
+   },
+   {
+    "grade": "2.7",
+    "people": 2
+   },
+   {
+    "grade": "3.0",
+    "people": 3
+   },
+   {
+    "grade": "3.3",
+    "people": 1
+   },
+   {
+    "grade": "3.7",
+    "people": 4
+   },
+   {
+    "grade": "4.0",
+    "people": 7
+   },
+   {
+    "grade": "5.0",
+    "people": 27
+   },
+   {
+    "grade": "6.0",
+    "people": 44
+   }
+  ]
+ },
+ {
+  "courseId": "66b28b63d34856d36eb2dea8",
+  "tumonlineCourseId": "950671044",
+  "courseNumber": "0000002767",
+  "semester": "2023 W",
+  "exam": "endterm",
+  "peopleTotal": 1076,
+  "attemptsTotal": 862,
+  "peopleAttemptsFailed": 281,
+  "attemptsFailedPercentage": 32.6,
+  "averageAttemptsTotal": 3.55,
+  "averageAttemptsPassed": 2.85,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 8
+   },
+   {
+    "grade": "1.3",
+    "people": 19
+   },
+   {
+    "grade": "1.7",
+    "people": 34
+   },
+   {
+    "grade": "2.0",
+    "people": 59
+   },
+   {
+    "grade": "2.3",
+    "people": 56
+   },
+   {
+    "grade": "2.7",
+    "people": 91
+   },
+   {
+    "grade": "3.0",
+    "people": 91
+   },
+   {
+    "grade": "3.3",
+    "people": 93
+   },
+   {
+    "grade": "3.7",
+    "people": 92
+   },
+   {
+    "grade": "4.0",
+    "people": 38
+   },
+   {
+    "grade": "5.0",
+    "people": 281
+   },
+   {
+    "grade": "6.0",
+    "people": 214
+   }
+  ]
+ },
+ {
+  "courseId": "66b28b63d34856d36eb2dea8",
+  "tumonlineCourseId": "950671044",
+  "courseNumber": "0000002767",
+  "semester": "2023 S",
+  "exam": "endterm",
+  "peopleTotal": 1053,
+  "attemptsTotal": 845,
+  "peopleAttemptsFailed": 264,
+  "attemptsFailedPercentage": 31.24,
+  "averageAttemptsTotal": 3.46,
+  "averageAttemptsPassed": 2.77,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 19
+   },
+   {
+    "grade": "1.3",
+    "people": 32
+   },
+   {
+    "grade": "1.7",
+    "people": 39
+   },
+   {
+    "grade": "2.0",
+    "people": 51
+   },
+   {
+    "grade": "2.3",
+    "people": 64
+   },
+   {
+    "grade": "2.7",
+    "people": 75
+   },
+   {
+    "grade": "3.0",
+    "people": 81
+   },
+   {
+    "grade": "3.3",
+    "people": 95
+   },
+   {
+    "grade": "3.7",
+    "people": 93
+   },
+   {
+    "grade": "4.0",
+    "people": 32
+   },
+   {
+    "grade": "5.0",
+    "people": 264
+   },
+   {
+    "grade": "6.0",
+    "people": 208
+   }
+  ]
+ },
+ {
+  "courseId": "66b28b30d34856d36eb2d9cd",
+  "tumonlineCourseId": "950669946",
+  "courseNumber": "0821022409",
+  "semester": "2023 S",
+  "exam": "endterm",
+  "peopleTotal": 1380,
+  "attemptsTotal": 1380,
+  "peopleAttemptsFailed": 393,
+  "attemptsFailedPercentage": 28.48,
+  "averageAttemptsTotal": 2.74,
+  "averageAttemptsPassed": 1.88,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 304
+   },
+   {
+    "grade": "1.3",
+    "people": 128
+   },
+   {
+    "grade": "1.7",
+    "people": 155
+   },
+   {
+    "grade": "2.0",
+    "people": 62
+   },
+   {
+    "grade": "2.3",
+    "people": 79
+   },
+   {
+    "grade": "2.7",
+    "people": 92
+   },
+   {
+    "grade": "3.0",
+    "people": 72
+   },
+   {
+    "grade": "3.3",
+    "people": 33
+   },
+   {
+    "grade": "3.7",
+    "people": 28
+   },
+   {
+    "grade": "4.0",
+    "people": 34
+   },
+   {
+    "grade": "4.3",
+    "people": 33
+   },
+   {
+    "grade": "4.7",
+    "people": 22
+   },
+   {
+    "grade": "5.0",
+    "people": 338
+   }
+  ]
+ },
+ {
+  "courseId": "66b28796d34856d36eb27b97",
+  "tumonlineCourseId": "950605046",
+  "courseNumber": "0000002530",
+  "semester": "2022 S",
+  "exam": "endterm",
+  "peopleTotal": 89,
+  "attemptsTotal": 59,
+  "peopleAttemptsFailed": 2,
+  "attemptsFailedPercentage": 3.39,
+  "averageAttemptsTotal": 2.38,
+  "averageAttemptsPassed": 2.3,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 3
+   },
+   {
+    "grade": "1.3",
+    "people": 8
+   },
+   {
+    "grade": "1.7",
+    "people": 9
+   },
+   {
+    "grade": "2.0",
+    "people": 6
+   },
+   {
+    "grade": "2.3",
+    "people": 6
+   },
+   {
+    "grade": "2.7",
+    "people": 11
+   },
+   {
+    "grade": "3.0",
+    "people": 6
+   },
+   {
+    "grade": "3.3",
+    "people": 3
+   },
+   {
+    "grade": "3.7",
+    "people": 3
+   },
+   {
+    "grade": "4.0",
+    "people": 2
+   },
+   {
+    "grade": "4.3",
+    "people": 1
+   },
+   {
+    "grade": "4.7",
+    "people": 1
+   },
+   {
+    "grade": "6.0",
+    "people": 30
+   }
+  ]
+ },
+ {
+  "courseId": "66b28796d34856d36eb27b97",
+  "tumonlineCourseId": "950605046",
+  "courseNumber": "0000002530",
+  "semester": "2023 W",
+  "exam": "endterm",
+  "peopleTotal": 91,
+  "attemptsTotal": 59,
+  "peopleAttemptsFailed": 4,
+  "attemptsFailedPercentage": 6.78,
+  "averageAttemptsTotal": 2.81,
+  "averageAttemptsPassed": 2.65,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 4
+   },
+   {
+    "grade": "1.3",
+    "people": 1
+   },
+   {
+    "grade": "1.7",
+    "people": 5
+   },
+   {
+    "grade": "2.0",
+    "people": 5
+   },
+   {
+    "grade": "2.3",
+    "people": 5
+   },
+   {
+    "grade": "2.7",
+    "people": 13
+   },
+   {
+    "grade": "3.0",
+    "people": 5
+   },
+   {
+    "grade": "3.3",
+    "people": 9
+   },
+   {
+    "grade": "3.7",
+    "people": 5
+   },
+   {
+    "grade": "4.0",
+    "people": 3
+   },
+   {
+    "grade": "5.0",
+    "people": 4
+   },
+   {
+    "grade": "6.0",
+    "people": 32
+   }
+  ]
+ },
+ {
+  "courseId": "66b28796d34856d36eb27b94",
+  "tumonlineCourseId": "950606250",
+  "courseNumber": "0000002444",
+  "semester": "2022 S",
+  "exam": "endterm",
+  "peopleTotal": 282,
+  "attemptsTotal": 152,
+  "peopleAttemptsFailed": 38,
+  "attemptsFailedPercentage": 25,
+  "averageAttemptsTotal": 2.85,
+  "averageAttemptsPassed": 2.21,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 7
+   },
+   {
+    "grade": "1.2",
+    "people": 9
+   },
+   {
+    "grade": "1.5",
+    "people": 6
+   },
+   {
+    "grade": "1.6",
+    "people": 2
+   },
+   {
+    "grade": "1.8",
+    "people": 18
+   },
+   {
+    "grade": "1.9",
+    "people": 3
+   },
+   {
+    "grade": "2.0",
+    "people": 3
+   },
+   {
+    "grade": "2.1",
+    "people": 2
+   },
+   {
+    "grade": "2.2",
+    "people": 15
+   },
+   {
+    "grade": "2.3",
+    "people": 4
+   },
+   {
+    "grade": "2.5",
+    "people": 10
+   },
+   {
+    "grade": "2.6",
+    "people": 6
+   },
+   {
+    "grade": "2.8",
+    "people": 8
+   },
+   {
+    "grade": "2.9",
+    "people": 4
+   },
+   {
+    "grade": "3.1",
+    "people": 1
+   },
+   {
+    "grade": "3.2",
+    "people": 5
+   },
+   {
+    "grade": "3.3",
+    "people": 4
+   },
+   {
+    "grade": "3.4",
+    "people": 1
+   },
+   {
+    "grade": "3.5",
+    "people": 6
+   },
+   {
+    "grade": "4.3",
+    "people": 10
+   },
+   {
+    "grade": "4.7",
+    "people": 4
+   },
+   {
+    "grade": "5.0",
+    "people": 24
+   },
+   {
+    "grade": "6.0",
+    "people": 130
+   }
+  ]
+ },
+ {
+  "courseId": "66b28796d34856d36eb27b94",
+  "tumonlineCourseId": "950606250",
+  "courseNumber": "0000002444",
+  "semester": "2022 S",
+  "exam": "retake",
+  "peopleTotal": 142,
+  "attemptsTotal": 70,
+  "peopleAttemptsFailed": 13,
+  "attemptsFailedPercentage": 18.57,
+  "averageAttemptsTotal": 2.67,
+  "averageAttemptsPassed": 2.21,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 9
+   },
+   {
+    "grade": "1.2",
+    "people": 3
+   },
+   {
+    "grade": "1.3",
+    "people": 1
+   },
+   {
+    "grade": "1.5",
+    "people": 3
+   },
+   {
+    "grade": "1.8",
+    "people": 8
+   },
+   {
+    "grade": "1.9",
+    "people": 2
+   },
+   {
+    "grade": "2.2",
+    "people": 6
+   },
+   {
+    "grade": "2.3",
+    "people": 2
+   },
+   {
+    "grade": "2.4",
+    "people": 1
+   },
+   {
+    "grade": "2.5",
+    "people": 3
+   },
+   {
+    "grade": "2.7",
+    "people": 1
+   },
+   {
+    "grade": "2.8",
+    "people": 3
+   },
+   {
+    "grade": "3.1",
+    "people": 1
+   },
+   {
+    "grade": "3.2",
+    "people": 5
+   },
+   {
+    "grade": "3.3",
+    "people": 3
+   },
+   {
+    "grade": "3.5",
+    "people": 3
+   },
+   {
+    "grade": "3.6",
+    "people": 1
+   },
+   {
+    "grade": "3.7",
+    "people": 1
+   },
+   {
+    "grade": "4.0",
+    "people": 1
+   },
+   {
+    "grade": "4.3",
+    "people": 5
+   },
+   {
+    "grade": "4.7",
+    "people": 2
+   },
+   {
+    "grade": "5.0",
+    "people": 6
+   },
+   {
+    "grade": "6.0",
+    "people": 72
+   }
+  ]
+ },
+ {
+  "courseId": "66b287bbd34856d36eb27f7d",
+  "tumonlineCourseId": "950602622",
+  "courseNumber": "0821008365",
+  "semester": "2023 S",
+  "exam": "endterm",
+  "peopleTotal": 148,
+  "attemptsTotal": 98,
+  "peopleAttemptsFailed": 18,
+  "attemptsFailedPercentage": 18.37,
+  "averageAttemptsTotal": 2.86,
+  "averageAttemptsPassed": 2.43,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 7
+   },
+   {
+    "grade": "1.3",
+    "people": 5
+   },
+   {
+    "grade": "1.7",
+    "people": 6
+   },
+   {
+    "grade": "2.0",
+    "people": 11
+   },
+   {
+    "grade": "2.3",
+    "people": 12
+   },
+   {
+    "grade": "2.7",
+    "people": 13
+   },
+   {
+    "grade": "3.0",
+    "people": 13
+   },
+   {
+    "grade": "3.3",
+    "people": 5
+   },
+   {
+    "grade": "3.7",
+    "people": 4
+   },
+   {
+    "grade": "4.0",
+    "people": 4
+   },
+   {
+    "grade": "4.3",
+    "people": 4
+   },
+   {
+    "grade": "4.7",
+    "people": 4
+   },
+   {
+    "grade": "5.0",
+    "people": 10
+   },
+   {
+    "grade": "6.0",
+    "people": 50
+   }
+  ]
+ },
+ {
+  "courseId": "66b28a17d34856d36eb2bd43",
+  "tumonlineCourseId": "950635160",
+  "courseNumber": "0000001343",
+  "semester": "2023 W",
+  "exam": "retake",
+  "peopleTotal": 230,
+  "attemptsTotal": 94,
+  "peopleAttemptsFailed": 19,
+  "attemptsFailedPercentage": 20.21,
+  "averageAttemptsTotal": 3.19,
+  "averageAttemptsPassed": 2.8,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 2
+   },
+   {
+    "grade": "1.3",
+    "people": 6
+   },
+   {
+    "grade": "1.7",
+    "people": 7
+   },
+   {
+    "grade": "2.0",
+    "people": 1
+   },
+   {
+    "grade": "2.3",
+    "people": 9
+   },
+   {
+    "grade": "2.7",
+    "people": 10
+   },
+   {
+    "grade": "3.0",
+    "people": 12
+   },
+   {
+    "grade": "3.3",
+    "people": 10
+   },
+   {
+    "grade": "3.7",
+    "people": 9
+   },
+   {
+    "grade": "4.0",
+    "people": 9
+   },
+   {
+    "grade": "4.3",
+    "people": 5
+   },
+   {
+    "grade": "4.7",
+    "people": 3
+   },
+   {
+    "grade": "5.0",
+    "people": 11
+   },
+   {
+    "grade": "6.0",
+    "people": 136
+   }
+  ]
+ },
+ {
+  "courseId": "66b28a17d34856d36eb2bd43",
+  "tumonlineCourseId": "950635160",
+  "courseNumber": "0000001343",
+  "semester": "2022 W",
+  "exam": "retake",
+  "peopleTotal": 176,
+  "attemptsTotal": 89,
+  "peopleAttemptsFailed": 21,
+  "attemptsFailedPercentage": 23.6,
+  "averageAttemptsTotal": 3.29,
+  "averageAttemptsPassed": 2.85,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 3
+   },
+   {
+    "grade": "1.3",
+    "people": 4
+   },
+   {
+    "grade": "1.7",
+    "people": 5
+   },
+   {
+    "grade": "2.0",
+    "people": 6
+   },
+   {
+    "grade": "2.3",
+    "people": 3
+   },
+   {
+    "grade": "2.7",
+    "people": 8
+   },
+   {
+    "grade": "3.0",
+    "people": 7
+   },
+   {
+    "grade": "3.3",
+    "people": 13
+   },
+   {
+    "grade": "3.7",
+    "people": 12
+   },
+   {
+    "grade": "4.0",
+    "people": 7
+   },
+   {
+    "grade": "4.3",
+    "people": 7
+   },
+   {
+    "grade": "4.7",
+    "people": 4
+   },
+   {
+    "grade": "5.0",
+    "people": 10
+   },
+   {
+    "grade": "6.0",
+    "people": 87
+   }
+  ]
+ },
+ {
+  "courseId": "66b28a19d34856d36eb2bd7c",
+  "tumonlineCourseId": "950630490",
+  "courseNumber": "240905670",
+  "semester": "2023 W",
+  "exam": "endterm",
+  "peopleTotal": 437,
+  "attemptsTotal": 333,
+  "peopleAttemptsFailed": 37,
+  "attemptsFailedPercentage": 11.11,
+  "averageAttemptsTotal": 2.54,
+  "averageAttemptsPassed": 2.26,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 40
+   },
+   {
+    "grade": "1.3",
+    "people": 35
+   },
+   {
+    "grade": "1.7",
+    "people": 32
+   },
+   {
+    "grade": "2.0",
+    "people": 34
+   },
+   {
+    "grade": "2.3",
+    "people": 41
+   },
+   {
+    "grade": "2.7",
+    "people": 28
+   },
+   {
+    "grade": "3.0",
+    "people": 32
+   },
+   {
+    "grade": "3.3",
+    "people": 23
+   },
+   {
+    "grade": "3.7",
+    "people": 14
+   },
+   {
+    "grade": "4.0",
+    "people": 17
+   },
+   {
+    "grade": "4.3",
+    "people": 11
+   },
+   {
+    "grade": "4.7",
+    "people": 8
+   },
+   {
+    "grade": "5.0",
+    "people": 18
+   },
+   {
+    "grade": "6.0",
+    "people": 104
+   }
+  ]
+ },
+ {
+  "courseId": "66b28a19d34856d36eb2bd7c",
+  "tumonlineCourseId": "950630490",
+  "courseNumber": "240905670",
+  "semester": "2022 W",
+  "exam": "endterm",
+  "peopleTotal": 330,
+  "attemptsTotal": 225,
+  "peopleAttemptsFailed": 58,
+  "attemptsFailedPercentage": 25.78,
+  "averageAttemptsTotal": 3.14,
+  "averageAttemptsPassed": 2.57,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 13
+   },
+   {
+    "grade": "1.3",
+    "people": 12
+   },
+   {
+    "grade": "1.7",
+    "people": 16
+   },
+   {
+    "grade": "2.0",
+    "people": 17
+   },
+   {
+    "grade": "2.3",
+    "people": 17
+   },
+   {
+    "grade": "2.7",
+    "people": 19
+   },
+   {
+    "grade": "3.0",
+    "people": 24
+   },
+   {
+    "grade": "3.3",
+    "people": 20
+   },
+   {
+    "grade": "3.7",
+    "people": 14
+   },
+   {
+    "grade": "4.0",
+    "people": 15
+   },
+   {
+    "grade": "4.3",
+    "people": 17
+   },
+   {
+    "grade": "4.7",
+    "people": 8
+   },
+   {
+    "grade": "5.0",
+    "people": 33
+   },
+   {
+    "grade": "6.0",
+    "people": 105
+   }
+  ]
+ },
+ {
+  "courseId": "66b287d7d34856d36eb2826e",
+  "tumonlineCourseId": "950606880",
+  "courseNumber": "0000001938",
+  "semester": "2024 S",
+  "exam": "endterm",
+  "peopleTotal": 597,
+  "attemptsTotal": 423,
+  "peopleAttemptsFailed": 167,
+  "attemptsFailedPercentage": 39.48,
+  "averageAttemptsTotal": 3.6,
+  "averageAttemptsPassed": 2.84,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 17
+   },
+   {
+    "grade": "1.3",
+    "people": 2
+   },
+   {
+    "grade": "1.4",
+    "people": 14
+   },
+   {
+    "grade": "1.7",
+    "people": 13
+   },
+   {
+    "grade": "2.0",
+    "people": 13
+   },
+   {
+    "grade": "2.3",
+    "people": 1
+   },
+   {
+    "grade": "2.4",
+    "people": 15
+   },
+   {
+    "grade": "2.7",
+    "people": 34
+   },
+   {
+    "grade": "3.0",
+    "people": 38
+   },
+   {
+    "grade": "3.3",
+    "people": 17
+   },
+   {
+    "grade": "3.4",
+    "people": 23
+   },
+   {
+    "grade": "3.7",
+    "people": 52
+   },
+   {
+    "grade": "4.0",
+    "people": 17
+   },
+   {
+    "grade": "4.3",
+    "people": 39
+   },
+   {
+    "grade": "4.7",
+    "people": 38
+   },
+   {
+    "grade": "5.0",
+    "people": 90
+   },
+   {
+    "grade": "6.0",
+    "people": 174
+   }
+  ]
+ },
+ {
+  "courseId": "66b287ddd34856d36eb28301",
+  "tumonlineCourseId": "950602651",
+  "courseNumber": "821032231",
+  "semester": "2022 S",
+  "exam": "endterm",
+  "peopleTotal": 128,
+  "attemptsTotal": 67,
+  "peopleAttemptsFailed": 30,
+  "attemptsFailedPercentage": 44.78,
+  "averageAttemptsTotal": 3.83,
+  "averageAttemptsPassed": 2.99,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 2
+   },
+   {
+    "grade": "2.0",
+    "people": 2
+   },
+   {
+    "grade": "2.3",
+    "people": 2
+   },
+   {
+    "grade": "2.7",
+    "people": 11
+   },
+   {
+    "grade": "3.0",
+    "people": 3
+   },
+   {
+    "grade": "3.3",
+    "people": 5
+   },
+   {
+    "grade": "3.7",
+    "people": 11
+   },
+   {
+    "grade": "4.0",
+    "people": 1
+   },
+   {
+    "grade": "4.3",
+    "people": 2
+   },
+   {
+    "grade": "4.7",
+    "people": 8
+   },
+   {
+    "grade": "5.0",
+    "people": 20
+   },
+   {
+    "grade": "6.0",
+    "people": 61
+   }
+  ]
+ },
+ {
+  "courseId": "66b28a2bd34856d36eb2bf23",
+  "tumonlineCourseId": "950630541",
+  "courseNumber": "0000003584",
+  "semester": "2022 W",
+  "exam": "endterm",
+  "peopleTotal": 535,
+  "attemptsTotal": 467,
+  "peopleAttemptsFailed": 55,
+  "attemptsFailedPercentage": 11.78,
+  "averageAttemptsTotal": 2.12,
+  "averageAttemptsPassed": 1.77,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 167
+   },
+   {
+    "grade": "1.3",
+    "people": 41
+   },
+   {
+    "grade": "1.7",
+    "people": 50
+   },
+   {
+    "grade": "2.0",
+    "people": 39
+   },
+   {
+    "grade": "2.3",
+    "people": 27
+   },
+   {
+    "grade": "2.7",
+    "people": 23
+   },
+   {
+    "grade": "3.0",
+    "people": 23
+   },
+   {
+    "grade": "3.3",
+    "people": 16
+   },
+   {
+    "grade": "3.7",
+    "people": 13
+   },
+   {
+    "grade": "4.0",
+    "people": 13
+   },
+   {
+    "grade": "4.3",
+    "people": 12
+   },
+   {
+    "grade": "4.7",
+    "people": 13
+   },
+   {
+    "grade": "5.0",
+    "people": 30
+   },
+   {
+    "grade": "6.0",
+    "people": 68
+   }
+  ]
+ },
+ {
+  "courseId": "66b287ded34856d36eb28319",
+  "tumonlineCourseId": "950602657",
+  "courseNumber": "0000000312",
+  "semester": "2022 S",
+  "exam": "endterm",
+  "peopleTotal": 91,
+  "attemptsTotal": 59,
+  "peopleAttemptsFailed": 5,
+  "attemptsFailedPercentage": 8.47,
+  "averageAttemptsTotal": 2.04,
+  "averageAttemptsPassed": 1.78,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 26
+   },
+   {
+    "grade": "1.3",
+    "people": 1
+   },
+   {
+    "grade": "1.7",
+    "people": 3
+   },
+   {
+    "grade": "2.0",
+    "people": 5
+   },
+   {
+    "grade": "2.3",
+    "people": 4
+   },
+   {
+    "grade": "2.7",
+    "people": 9
+   },
+   {
+    "grade": "3.0",
+    "people": 1
+   },
+   {
+    "grade": "3.3",
+    "people": 4
+   },
+   {
+    "grade": "4.0",
+    "people": 1
+   },
+   {
+    "grade": "4.7",
+    "people": 3
+   },
+   {
+    "grade": "5.0",
+    "people": 2
+   },
+   {
+    "grade": "6.0",
+    "people": 32
+   }
+  ]
+ },
+ {
+  "courseId": "66b286d1d34856d36eb266f4",
+  "tumonlineCourseId": "950601561",
+  "courseNumber": "0000001228",
+  "semester": "2022 S",
+  "exam": "endterm",
+  "peopleTotal": 178,
+  "attemptsTotal": 131,
+  "peopleAttemptsFailed": 46,
+  "attemptsFailedPercentage": 35.11,
+  "averageAttemptsTotal": 3.55,
+  "averageAttemptsPassed": 2.93,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 2
+   },
+   {
+    "grade": "1.3",
+    "people": 2
+   },
+   {
+    "grade": "1.7",
+    "people": 4
+   },
+   {
+    "grade": "2.0",
+    "people": 9
+   },
+   {
+    "grade": "2.3",
+    "people": 8
+   },
+   {
+    "grade": "2.7",
+    "people": 7
+   },
+   {
+    "grade": "3.0",
+    "people": 15
+   },
+   {
+    "grade": "3.3",
+    "people": 16
+   },
+   {
+    "grade": "3.7",
+    "people": 12
+   },
+   {
+    "grade": "4.0",
+    "people": 10
+   },
+   {
+    "grade": "4.3",
+    "people": 15
+   },
+   {
+    "grade": "4.7",
+    "people": 10
+   },
+   {
+    "grade": "5.0",
+    "people": 21
+   },
+   {
+    "grade": "6.0",
+    "people": 47
+   }
+  ]
+ },
+ {
+  "courseId": "66b2868ad34856d36eb25fb3",
+  "tumonlineCourseId": "950602694",
+  "courseNumber": "0000002764",
+  "semester": "2022 S",
+  "exam": "retake",
+  "peopleTotal": 126,
+  "attemptsTotal": 75,
+  "peopleAttemptsFailed": 4,
+  "attemptsFailedPercentage": 5.33,
+  "averageAttemptsTotal": 2.33,
+  "averageAttemptsPassed": 2.19,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 5
+   },
+   {
+    "grade": "1.3",
+    "people": 13
+   },
+   {
+    "grade": "1.7",
+    "people": 8
+   },
+   {
+    "grade": "2.0",
+    "people": 11
+   },
+   {
+    "grade": "2.3",
+    "people": 11
+   },
+   {
+    "grade": "2.7",
+    "people": 8
+   },
+   {
+    "grade": "3.0",
+    "people": 4
+   },
+   {
+    "grade": "3.3",
+    "people": 5
+   },
+   {
+    "grade": "3.7",
+    "people": 4
+   },
+   {
+    "grade": "4.0",
+    "people": 2
+   },
+   {
+    "grade": "4.3",
+    "people": 1
+   },
+   {
+    "grade": "5.0",
+    "people": 3
+   },
+   {
+    "grade": "6.0",
+    "people": 51
+   }
+  ]
+ },
+ {
+  "courseId": "66b28862d34856d36eb29085",
+  "tumonlineCourseId": "950603057",
+  "courseNumber": "0000002435",
+  "semester": "2023 S",
+  "exam": "retake",
+  "peopleTotal": 89,
+  "attemptsTotal": 43,
+  "peopleAttemptsFailed": 6,
+  "attemptsFailedPercentage": 13.95,
+  "averageAttemptsTotal": 2.27,
+  "averageAttemptsPassed": 1.88,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 14
+   },
+   {
+    "grade": "1.3",
+    "people": 1
+   },
+   {
+    "grade": "1.7",
+    "people": 6
+   },
+   {
+    "grade": "2.0",
+    "people": 3
+   },
+   {
+    "grade": "2.3",
+    "people": 3
+   },
+   {
+    "grade": "2.7",
+    "people": 4
+   },
+   {
+    "grade": "3.0",
+    "people": 3
+   },
+   {
+    "grade": "3.3",
+    "people": 1
+   },
+   {
+    "grade": "4.0",
+    "people": 2
+   },
+   {
+    "grade": "4.3",
+    "people": 2
+   },
+   {
+    "grade": "4.7",
+    "people": 1
+   },
+   {
+    "grade": "5.0",
+    "people": 3
+   },
+   {
+    "grade": "6.0",
+    "people": 46
+   }
+  ]
+ },
+ {
+  "courseId": "66b28bb6d34856d36eb2e738",
+  "tumonlineCourseId": "950695450",
+  "courseNumber": "0000003729",
+  "semester": "2023 S",
+  "exam": "endterm",
+  "peopleTotal": 25,
+  "attemptsTotal": 13,
+  "peopleAttemptsFailed": 9,
+  "attemptsFailedPercentage": 69.23,
+  "averageAttemptsTotal": 4.35,
+  "averageAttemptsPassed": 3.08,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 0
+   },
+   {
+    "grade": "1.3",
+    "people": 1
+   },
+   {
+    "grade": "1.7",
+    "people": 0
+   },
+   {
+    "grade": "2.0",
+    "people": 0
+   },
+   {
+    "grade": "2.3",
+    "people": 0
+   },
+   {
+    "grade": "2.7",
+    "people": 0
+   },
+   {
+    "grade": "3.0",
+    "people": 1
+   },
+   {
+    "grade": "3.3",
+    "people": 0
+   },
+   {
+    "grade": "3.7",
+    "people": 0
+   },
+   {
+    "grade": "4.0",
+    "people": 2
+   },
+   {
+    "grade": "4.3",
+    "people": 1
+   },
+   {
+    "grade": "4.7",
+    "people": 0
+   },
+   {
+    "grade": "5.0",
+    "people": 8
+   },
+   {
+    "grade": "6.0",
+    "people": 12
+   }
+  ]
+ },
+ {
+  "courseId": "66b28894d34856d36eb29589",
+  "tumonlineCourseId": "950602951",
+  "courseNumber": "0000002448",
+  "semester": "2022 S",
+  "exam": "endterm",
+  "peopleTotal": 59,
+  "attemptsTotal": 23,
+  "peopleAttemptsFailed": 8,
+  "attemptsFailedPercentage": 34.78,
+  "averageAttemptsTotal": 3.32,
+  "averageAttemptsPassed": 2.58,
+  "grades": [
+   {
+    "grade": "1.0",
+    "people": 3
+   },
+   {
+    "grade": "2.0",
+    "people": 3
+   },
+   {
+    "grade": "2.3",
+    "people": 1
+   },
+   {
+    "grade": "2.7",
+    "people": 1
+   },
+   {
+    "grade": "3.0",
+    "people": 2
+   },
+   {
+    "grade": "3.3",
+    "people": 1
+   },
+   {
+    "grade": "3.7",
+    "people": 2
+   },
+   {
+    "grade": "4.0",
+    "people": 2
+   },
+   {
+    "grade": "4.3",
+    "people": 2
+   },
+   {
+    "grade": "4.7",
+    "people": 3
+   },
+   {
+    "grade": "5.0",
+    "people": 3
+   },
+   {
+    "grade": "6.0",
+    "people": 36
+   }
+  ]
+ }
+]
